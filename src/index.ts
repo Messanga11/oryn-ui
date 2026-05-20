@@ -6,7 +6,7 @@ export { Box } from './primitives/box';
 export type { BoxProps } from './primitives/box';
 
 export { Typography } from './primitives/typography';
-export type { TypographyProps, TextAlign, TextColor } from './primitives/typography';
+export type { TypographyProps, TextAlign, TextColor, TextTone, FontWeight } from './primitives/typography';
 
 export { Image } from './primitives/image';
 export type { ImageProps, ImageContentFit } from './primitives/image';
@@ -74,7 +74,7 @@ export { Avatar } from './components/avatar';
 export type { AvatarProps, AvatarSize } from './components/avatar';
 
 export { Badge } from './components/badge';
-export type { BadgeProps, BadgeVariant } from './components/badge';
+export type { BadgeProps, BadgeVariant, BadgeTone } from './components/badge';
 
 export { Chip } from './components/chip';
 export type { ChipProps } from './components/chip';
@@ -139,6 +139,10 @@ export type {
   UpdateGateProps,
   VersionCheckResult,
 } from './patterns/update-gate';
+
+// ─── Providers ─────────────────────────────────────────────────────────────
+export { UIProvider } from './providers/UIProvider';
+export type { UIProviderProps } from './providers/UIProvider';
 
 // ─── Blocks ────────────────────────────────────────────────────────────────
 export { BlockRenderer, createBlockRenderer } from './blocks/block-renderer';

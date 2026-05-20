@@ -21,6 +21,8 @@ const VARIANT_CLASS: Record<TypographyVariant, string> = {
 
 export type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify';
 export type TextColor = 'primary' | 'secondary' | 'muted' | 'disabled' | 'error' | 'success' | 'warning' | 'info';
+export type TextTone = 'default' | 'muted' | 'secondary' | 'disabled' | 'error' | 'success' | 'warning' | 'info';
+export type FontWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
 
 const COLOR_CLASS: Record<TextColor, string> = {
   primary: 'text-text-primary',
@@ -31,6 +33,31 @@ const COLOR_CLASS: Record<TextColor, string> = {
   success: 'text-success',
   warning: 'text-warning',
   info: 'text-info',
+};
+
+/**
+ * DESIGN-03 / WCAG compliance:
+ * tone="muted" maps to text.secondary (#8B93A7, ratio 6.4:1 on bg.base) — AAA pass.
+ * text.muted (#555E75, ratio 2.9:1) is WCAG fail — forbidden on body text.
+ * tone.secondary maps to text.secondary (same)
+ */
+const TONE_CLASS: Record<TextTone, string> = {
+  default: '',
+  muted: 'text-text-secondary', // muted → secondary for WCAG AA compliance
+  secondary: 'text-text-secondary',
+  disabled: 'text-text-disabled',
+  error: 'text-error',
+  success: 'text-success',
+  warning: 'text-warning',
+  info: 'text-info',
+};
+
+const WEIGHT_CLASS: Record<FontWeight, string> = {
+  light: 'font-light',
+  regular: 'font-normal',
+  medium: 'font-medium',
+  semibold: 'font-semibold',
+  bold: 'font-bold',
 };
 
 const ALIGN_CLASS: Record<TextAlign, string> = {
@@ -44,6 +71,9 @@ const ALIGN_CLASS: Record<TextAlign, string> = {
 export interface TypographyProps extends TextProps {
   variant?: TypographyVariant;
   color?: TextColor;
+  /** tone overrides color — tone="muted" maps to text.secondary (WCAG AA) */
+  tone?: TextTone;
+  weight?: FontWeight;
   align?: TextAlign;
   className?: string;
 }
@@ -51,19 +81,26 @@ export interface TypographyProps extends TextProps {
 /**
  * Typography — typed text primitive.
  * Replaces <p>, <span>, <h1>–<h6> everywhere.
+ *
+ * IMPORTANT: tone="muted" → text.secondary (#8B93A7, ratio 6.4:1) NOT text.muted.
+ * This is intentional — text.muted (#555E75) fails WCAG AA on dark backgrounds.
  */
 export function Typography({
   variant = 'body',
   color,
+  tone,
+  weight,
   align,
   className,
   style,
   ...props
 }: TypographyProps) {
   const variantClass = VARIANT_CLASS[variant];
-  const colorClass = color ? COLOR_CLASS[color] : '';
+  // tone takes priority over color
+  const colorClass = tone ? TONE_CLASS[tone] : color ? COLOR_CLASS[color] : '';
+  const weightClass = weight ? WEIGHT_CLASS[weight] : '';
   const alignClass = align ? ALIGN_CLASS[align] : '';
-  const composedClass = [variantClass, colorClass, alignClass, className]
+  const composedClass = [variantClass, colorClass, weightClass, alignClass, className]
     .filter(Boolean)
     .join(' ');
 

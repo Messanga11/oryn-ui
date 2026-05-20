@@ -3,11 +3,12 @@
  * Dark-first utility style (Linear / Onfleet aesthetic)
  */
 export const colors = {
-  // Brand gradient: CTA & app icon only
+  // Brand gradient: CTA & app icon only (sprint 02+). Token exists; runtime use forbidden sprint 00.
   brand: {
     from: '#3B5BDB',
     to: '#9C36B5',
-    gradient: 'linear-gradient(135deg, #3B5BDB, #9C36B5)',
+    gradient: ['#3B5BDB', '#9C36B5'] as const,
+    gradientAngle: 135,
   },
 
   // Primary blue
