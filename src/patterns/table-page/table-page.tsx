@@ -283,7 +283,7 @@ export function TablePage<TData, TFormData = any>({
       ) : resolvedData.length === 0 ? (
         <EmptyState
           title={mm.emptyTitle ?? labels.noResults}
-          description={mm.emptyDescription}
+          {...(mm.emptyDescription !== undefined ? { description: mm.emptyDescription } : {})}
         />
       ) : renderRow ? (
         <Column gap={8}>

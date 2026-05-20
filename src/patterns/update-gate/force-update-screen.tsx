@@ -4,7 +4,6 @@ import { Column } from '../../layout/column';
 import { Typography } from '../../primitives/typography';
 import { Button } from '../../components/button';
 import { Card } from '../../components/card';
-import { Spacer } from '../../primitives/spacer';
 
 export interface ForceUpdateScreenProps {
   latestVersion: string;

@@ -59,9 +59,9 @@ export function UpdateGate({
     return (
       <ForceUpdateScreen
         latestVersion={versionCheck.latestVersion ?? ''}
-        storeUrl={versionCheck.storeUrl}
-        releaseNotes={versionCheck.releaseNotes}
         platform={platform}
+        {...(versionCheck.storeUrl !== undefined ? { storeUrl: versionCheck.storeUrl } : {})}
+        {...(versionCheck.releaseNotes !== undefined ? { releaseNotes: versionCheck.releaseNotes } : {})}
       />
     );
   }
@@ -72,8 +72,8 @@ export function UpdateGate({
       <Column className="flex-1">
         <UpdateSuggestionBanner
           latestVersion={versionCheck.latestVersion ?? ''}
-          storeUrl={versionCheck.storeUrl}
           platform={platform}
+          {...(versionCheck.storeUrl !== undefined ? { storeUrl: versionCheck.storeUrl } : {})}
         />
         {children}
       </Column>
