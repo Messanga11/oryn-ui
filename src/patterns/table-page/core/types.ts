@@ -35,7 +35,7 @@ export interface PaginationMeta {
 export interface TablePageAction<TData> {
   label: string;
   onClick: (row: TData) => void;
-  variant?: "default" | "destructive";
+  variant?: 'default' | 'destructive';
 }
 
 export interface UseTablePageOptions<TData> {
@@ -69,10 +69,12 @@ export interface UseTablePageReturn<TData> {
 }
 
 interface OrvalResponse<TData> {
-  data?: {
-    data?: TData[];
-    meta?: PaginationMeta;
-  } | TData[];
+  data?:
+    | {
+        data?: TData[];
+        meta?: PaginationMeta;
+      }
+    | TData[];
 }
 
 export interface UnwrappedResponse<TData> {

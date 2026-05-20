@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollContainer } from '../../primitives/scroll-container';
 import { Box } from '../../primitives/box';
+import { ScrollContainer } from '../../primitives/scroll-container';
 
 type BgToken = 'bg.base' | 'bg.surface' | 'bg.elevated' | 'bg.overlay';
 

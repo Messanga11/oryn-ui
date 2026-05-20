@@ -8,19 +8,16 @@ import { useForm } from '@tanstack/react-form';
 import type { ReactNode, RefObject } from 'react';
 import { useImperativeHandle, useMemo } from 'react';
 import type { z } from 'zod';
+import { Column } from '../../layout/column';
+import { Row } from '../../layout/row';
+import { Box } from '../../primitives/box';
 import { useFieldRenderers } from './core/context';
 import { useFormBuilderStyle } from './core/style-context';
 import type { FormBuilderStyle } from './core/style-context';
 import type { FieldConfig, FieldType } from './core/types';
 import { extractFiles } from './file-handling';
-import { Box } from '../../primitives/box';
-import { Column } from '../../layout/column';
-import { Row } from '../../layout/row';
 
-export interface FormFieldConfig<
-  TFormData,
-  Name extends keyof TFormData = keyof TFormData,
-> {
+export interface FormFieldConfig<TFormData, Name extends keyof TFormData = keyof TFormData> {
   name: Name;
   label?: string;
   type: FieldType | string;
@@ -82,10 +79,7 @@ export function FormBuilder<TFormData, TValidators = unknown>({
 }: Readonly<FormBuilderProps<TFormData, TValidators>>) {
   const renderers = useFieldRenderers();
   const globalStyle = useFormBuilderStyle();
-  const style = useMemo(
-    () => ({ ...globalStyle, ...formStyleProp }),
-    [globalStyle, formStyleProp],
-  );
+  const style = useMemo(() => ({ ...globalStyle, ...formStyleProp }), [globalStyle, formStyleProp]);
 
   const fileFieldNames = useMemo(
     () =>
@@ -98,10 +92,7 @@ export function FormBuilder<TFormData, TValidators = unknown>({
     [fields],
   );
 
-  const flatFields = useMemo(
-    () => fields.flatMap((f) => (Array.isArray(f) ? f : [f])),
-    [fields],
-  );
+  const flatFields = useMemo(() => fields.flatMap((f) => (Array.isArray(f) ? f : [f])), [fields]);
 
   const fieldValidators = useMemo(() => {
     const map = new Map<string, z.ZodType<unknown>>();
@@ -201,23 +192,13 @@ export function FormBuilder<TFormData, TValidators = unknown>({
     );
   }
 
-  // Trigger submit on form.handleSubmit — no <form> element needed
-  const handleSubmit = () => {
-    void form.validateAllFields('submit');
-    void form.handleSubmit();
-  };
-
   return (
     <Column gap={16} className={className}>
-      {fields.map((fieldOrRow, i) => {
+      {fields.map((fieldOrRow) => {
         if (Array.isArray(fieldOrRow)) {
+          const rowKey = fieldOrRow.map((f) => String(f.name)).join('-');
           return (
-            <Row
-              key={`row-${i}`}
-              gap={16}
-              align="start"
-              className="flex-wrap"
-            >
+            <Row key={`row-${rowKey}`} gap={16} align="start" className="flex-wrap">
               {fieldOrRow.map((f) => renderField(f))}
             </Row>
           );

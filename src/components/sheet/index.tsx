@@ -1,12 +1,9 @@
 import type { ReactNode } from 'react';
 import { Modal, Pressable as RNPressable } from 'react-native';
-import Animated, {
-  SlideInDown,
-  SlideOutDown,
-} from 'react-native-reanimated';
+import Animated, { SlideInDown, SlideOutDown } from 'react-native-reanimated';
 import { Box } from '../../primitives/box';
-import { Typography } from '../../primitives/typography';
 import { ScrollContainer } from '../../primitives/scroll-container';
+import { Typography } from '../../primitives/typography';
 
 export interface SheetProps {
   open: boolean;
@@ -33,17 +30,9 @@ export function Sheet({
   className,
 }: SheetProps) {
   return (
-    <Modal
-      visible={open}
-      transparent
-      animationType="none"
-      onRequestClose={onClose}
-    >
+    <Modal visible={open} transparent animationType="none" onRequestClose={onClose}>
       {/* Backdrop */}
-      <RNPressable
-        style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }}
-        onPress={onClose}
-      />
+      <RNPressable style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }} onPress={onClose} />
 
       {/* Sheet content */}
       <Animated.View

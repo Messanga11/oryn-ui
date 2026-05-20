@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
-import { Modal } from '../modal';
 import { Box } from '../../primitives/box';
-import { Button } from '../button';
 import { Typography } from '../../primitives/typography';
+import { Button } from '../button';
+import { Modal } from '../modal';
 
 export interface AlertDialogProps {
   open: boolean;

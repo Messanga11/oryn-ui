@@ -3,13 +3,12 @@ import type { FlashListProps } from '@shopify/flash-list';
 import { Box } from '../box';
 import { Typography } from '../typography';
 
-export interface ListProps<TItem>
-  extends Omit<FlashListProps<TItem>, 'renderItem'> {
+export interface ListProps<TItem> extends Omit<FlashListProps<TItem>, 'renderItem'> {
   renderItem: (item: TItem, index: number) => React.ReactNode;
   keyExtractor?: (item: TItem, index: number) => string;
   emptyTitle?: string;
   emptyDescription?: string;
-  emptyComponent?: React.ReactNode;
+  emptyComponent?: React.ReactElement;
   className?: string;
   contentClassName?: string;
 }
@@ -36,9 +35,7 @@ export function List<TItem>({
       data={data}
       renderItem={({ item, index }) => renderItem(item, index) as React.ReactElement}
       keyExtractor={
-        keyExtractor
-          ? (item, index) => keyExtractor(item, index)
-          : (_item, index) => String(index)
+        keyExtractor ? (item, index) => keyExtractor(item, index) : (_item, index) => String(index)
       }
       estimatedItemSize={estimatedItemSize}
       showsVerticalScrollIndicator={false}

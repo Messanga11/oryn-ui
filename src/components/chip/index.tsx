@@ -18,9 +18,7 @@ export function Chip({ children, selected = false, onPress, disabled, className 
       disabled={disabled}
       className={[
         'flex-row items-center rounded-full px-3 py-1 border',
-        selected
-          ? 'bg-primary-500/20 border-primary-500/50'
-          : 'bg-bg-elevated border-bg-border',
+        selected ? 'bg-primary-500/20 border-primary-500/50' : 'bg-bg-elevated border-bg-border',
         disabled ? 'opacity-50' : '',
         className,
       ]

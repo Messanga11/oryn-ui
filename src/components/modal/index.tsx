@@ -26,12 +26,7 @@ export function Modal({
   className,
 }: ModalProps) {
   return (
-    <RNModal
-      visible={open}
-      transparent
-      animationType="none"
-      onRequestClose={onClose}
-    >
+    <RNModal visible={open} transparent animationType="none" onRequestClose={onClose}>
       <Animated.View
         entering={FadeIn.duration(200)}
         exiting={FadeOut.duration(150)}
@@ -44,10 +39,7 @@ export function Modal({
         }}
       >
         {dismissable ? (
-          <RNPressable
-            style={{ position: 'absolute', inset: 0 }}
-            onPress={onClose}
-          />
+          <RNPressable style={{ position: 'absolute', inset: 0 }} onPress={onClose} />
         ) : null}
 
         <Animated.View

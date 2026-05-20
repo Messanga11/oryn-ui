@@ -10,7 +10,7 @@ export interface ExportData {
 }
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
-  const keys = path.split(".");
+  const keys = path.split('.');
   let current: unknown = obj;
   for (const key of keys) {
     if (current === null || current === undefined) return undefined;
@@ -19,20 +19,17 @@ function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   return current;
 }
 
-export function formatExportData<TData>(
-  data: TData[],
-  columns: ExportColumn[],
-): ExportData {
+export function formatExportData<TData>(data: TData[], columns: ExportColumn[]): ExportData {
   const exportableColumns = columns.filter((col) => col.accessorKey);
 
   const headers = exportableColumns.map((col) => {
-    if (typeof col.header === "string") return col.header;
-    return col.id ?? "";
+    if (typeof col.header === 'string') return col.header;
+    return col.id ?? '';
   });
 
   const rows = data.map((row) =>
     exportableColumns.map((col) =>
-      getNestedValue(row as Record<string, unknown>, col.accessorKey!),
+      getNestedValue(row as Record<string, unknown>, col.accessorKey ?? ''),
     ),
   );
 

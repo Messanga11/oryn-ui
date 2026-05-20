@@ -1,8 +1,8 @@
+import { Button } from '../../components/button';
 import { Column } from '../../layout/column';
 import { PageLayout } from '../../layout/page-layout';
 import { Image } from '../../primitives/image';
 import { Typography } from '../../primitives/typography';
-import { Button } from '../../components/button';
 
 export interface HeroSectionProps {
   title: string;
@@ -33,11 +33,7 @@ export function HeroSection({
   variant = 'dark',
 }: HeroSectionProps) {
   const bgClass =
-    variant === 'light'
-      ? 'bg-white'
-      : variant === 'gradient'
-        ? 'bg-primary-600'
-        : 'bg-bg-base';
+    variant === 'light' ? 'bg-white' : variant === 'gradient' ? 'bg-primary-600' : 'bg-bg-base';
 
   return (
     <PageLayout className={`${bgClass} relative`}>
@@ -52,12 +48,7 @@ export function HeroSection({
         />
       ) : null}
 
-      <Column
-        align={ALIGN_MAP[alignment]}
-        justify="center"
-        gap={16}
-        className="flex-1 py-16 px-6"
-      >
+      <Column align={ALIGN_MAP[alignment]} justify="center" gap={16} className="flex-1 py-16 px-6">
         <Typography
           variant="h1"
           align={alignment}

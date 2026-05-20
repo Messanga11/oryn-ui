@@ -14,20 +14,13 @@ export interface CardLayoutProps {
 export function CardLayout({ header, footer, children, className }: CardLayoutProps) {
   return (
     <Box
-      className={[
-        'bg-bg-surface rounded-lg border border-bg-border overflow-hidden',
-        className,
-      ]
+      className={['bg-bg-surface rounded-lg border border-bg-border overflow-hidden', className]
         .filter(Boolean)
         .join(' ')}
     >
-      {header ? (
-        <Box className="px-4 py-3 border-b border-bg-border">{header}</Box>
-      ) : null}
+      {header ? <Box className="px-4 py-3 border-b border-bg-border">{header}</Box> : null}
       <Box className="px-4 py-4">{children}</Box>
-      {footer ? (
-        <Box className="px-4 py-3 border-t border-bg-border">{footer}</Box>
-      ) : null}
+      {footer ? <Box className="px-4 py-3 border-t border-bg-border">{footer}</Box> : null}
     </Box>
   );
 }

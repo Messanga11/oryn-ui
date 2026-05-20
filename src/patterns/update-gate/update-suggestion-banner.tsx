@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Linking } from 'react-native';
-import { Box } from '../../primitives/box';
-import { Typography } from '../../primitives/typography';
 import { Button } from '../../components/button';
 import { IconButton } from '../../components/icon-button';
+import { Box } from '../../primitives/box';
+import { Typography } from '../../primitives/typography';
 
 export interface UpdateSuggestionBannerProps {
   latestVersion: string;

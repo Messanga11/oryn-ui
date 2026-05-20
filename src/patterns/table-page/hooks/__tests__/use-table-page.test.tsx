@@ -1,9 +1,9 @@
-import { renderHook, act } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { act, renderHook } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
-describe("useTablePage", () => {
-  it("manages sheet open/close state", async () => {
-    const { useTablePage } = await import("../../index");
+describe('useTablePage', () => {
+  it('manages sheet open/close state', async () => {
+    const { useTablePage } = await import('../../index');
 
     const { result } = renderHook(() =>
       useTablePage({
@@ -22,10 +22,10 @@ describe("useTablePage", () => {
     expect(result.current.sheetOpen).toBe(false);
   });
 
-  it("opens sheet in edit mode with row data", async () => {
-    const { useTablePage } = await import("../../index");
+  it('opens sheet in edit mode with row data', async () => {
+    const { useTablePage } = await import('../../index');
 
-    const row = { id: "1", name: "Test" };
+    const row = { id: '1', name: 'Test' };
 
     const { result } = renderHook(() =>
       useTablePage({
@@ -40,10 +40,10 @@ describe("useTablePage", () => {
     expect(result.current.isEditMode).toBe(true);
   });
 
-  it("manages delete confirmation state", async () => {
-    const { useTablePage } = await import("../../index");
+  it('manages delete confirmation state', async () => {
+    const { useTablePage } = await import('../../index');
 
-    const row = { id: "1", name: "Test" };
+    const row = { id: '1', name: 'Test' };
 
     const { result } = renderHook(() =>
       useTablePage({
@@ -60,15 +60,13 @@ describe("useTablePage", () => {
     expect(result.current.deletingRow).toBeNull();
   });
 
-  it("calls onDelete and resets state on confirmDelete", async () => {
-    const { useTablePage } = await import("../../index");
+  it('calls onDelete and resets state on confirmDelete', async () => {
+    const { useTablePage } = await import('../../index');
 
     const onDelete = vi.fn().mockResolvedValue(undefined);
-    const row = { id: "1", name: "Test" };
+    const row = { id: '1', name: 'Test' };
 
-    const { result } = renderHook(() =>
-      useTablePage({ onDelete }),
-    );
+    const { result } = renderHook(() => useTablePage({ onDelete }));
 
     act(() => result.current.openDelete(row));
 
@@ -80,17 +78,15 @@ describe("useTablePage", () => {
     expect(result.current.deletingRow).toBeNull();
   });
 
-  it("calls onDeleteError when delete fails", async () => {
-    const { useTablePage } = await import("../../index");
+  it('calls onDeleteError when delete fails', async () => {
+    const { useTablePage } = await import('../../index');
 
-    const error = new Error("Delete failed");
+    const error = new Error('Delete failed');
     const onDelete = vi.fn().mockRejectedValue(error);
     const onDeleteError = vi.fn();
-    const row = { id: "1", name: "Test" };
+    const row = { id: '1', name: 'Test' };
 
-    const { result } = renderHook(() =>
-      useTablePage({ onDelete, onDeleteError }),
-    );
+    const { result } = renderHook(() => useTablePage({ onDelete, onDeleteError }));
 
     act(() => result.current.openDelete(row));
 
@@ -101,8 +97,8 @@ describe("useTablePage", () => {
     expect(onDeleteError).toHaveBeenCalledWith(error);
   });
 
-  it("handles form success: calls onSuccess callback and closes sheet", async () => {
-    const { useTablePage } = await import("../../index");
+  it('handles form success: calls onSuccess callback and closes sheet', async () => {
+    const { useTablePage } = await import('../../index');
 
     const onCreateSuccess = vi.fn();
 
@@ -116,15 +112,15 @@ describe("useTablePage", () => {
     act(() => result.current.openCreate());
 
     await act(async () => {
-      await result.current.handleFormSuccess({ id: "1" });
+      await result.current.handleFormSuccess({ id: '1' });
     });
 
-    expect(onCreateSuccess).toHaveBeenCalledWith({ id: "1" });
+    expect(onCreateSuccess).toHaveBeenCalledWith({ id: '1' });
     expect(result.current.sheetOpen).toBe(false);
   });
 
-  it("calls onUpdateSuccess in edit mode", async () => {
-    const { useTablePage } = await import("../../index");
+  it('calls onUpdateSuccess in edit mode', async () => {
+    const { useTablePage } = await import('../../index');
 
     const onUpdateSuccess = vi.fn();
 
@@ -135,21 +131,21 @@ describe("useTablePage", () => {
       }),
     );
 
-    act(() => result.current.openEdit({ id: "1" }));
+    act(() => result.current.openEdit({ id: '1' }));
 
     await act(async () => {
-      await result.current.handleFormSuccess({ id: "1" });
+      await result.current.handleFormSuccess({ id: '1' });
     });
 
-    expect(onUpdateSuccess).toHaveBeenCalledWith({ id: "1" });
+    expect(onUpdateSuccess).toHaveBeenCalledWith({ id: '1' });
     expect(result.current.sheetOpen).toBe(false);
   });
 
-  it("handles form error via callback", async () => {
-    const { useTablePage } = await import("../../index");
+  it('handles form error via callback', async () => {
+    const { useTablePage } = await import('../../index');
 
     const onFormError = vi.fn();
-    const error = new Error("Save failed");
+    const error = new Error('Save failed');
 
     const { result } = renderHook(() =>
       useTablePage({
@@ -163,49 +159,45 @@ describe("useTablePage", () => {
     expect(onFormError).toHaveBeenCalledWith(error);
   });
 
-  it("builds actions array with edit and delete when handlers are provided", async () => {
-    const { useTablePage } = await import("../../index");
+  it('builds actions array with edit and delete when handlers are provided', async () => {
+    const { useTablePage } = await import('../../index');
 
     const { result } = renderHook(() =>
       useTablePage({
         onDelete: vi.fn(),
         hasEditForm: true,
-        labels: { edit: "Modifier", delete: "Supprimer" },
+        labels: { edit: 'Modifier', delete: 'Supprimer' },
       }),
     );
 
     expect(result.current.actions).toHaveLength(2);
-    expect(result.current.actions[0].label).toBe("Modifier");
-    expect(result.current.actions[1].label).toBe("Supprimer");
-    expect(result.current.actions[1].variant).toBe("destructive");
+    expect(result.current.actions[0].label).toBe('Modifier');
+    expect(result.current.actions[1].label).toBe('Supprimer');
+    expect(result.current.actions[1].variant).toBe('destructive');
   });
 
-  it("merges custom actions with built-in actions", async () => {
-    const { useTablePage } = await import("../../index");
+  it('merges custom actions with built-in actions', async () => {
+    const { useTablePage } = await import('../../index');
 
-    const customActions = [
-      { label: "View", onClick: vi.fn() },
-    ];
+    const customActions = [{ label: 'View', onClick: vi.fn() }];
 
     const { result } = renderHook(() =>
       useTablePage({
         onDelete: vi.fn(),
         hasEditForm: true,
         extraActions: customActions,
-        labels: { edit: "Edit", delete: "Delete" },
+        labels: { edit: 'Edit', delete: 'Delete' },
       }),
     );
 
     expect(result.current.actions).toHaveLength(3);
-    expect(result.current.actions[2].label).toBe("View");
+    expect(result.current.actions[2].label).toBe('View');
   });
 
-  it("returns empty actions when no edit/delete handlers", async () => {
-    const { useTablePage } = await import("../../index");
+  it('returns empty actions when no edit/delete handlers', async () => {
+    const { useTablePage } = await import('../../index');
 
-    const { result } = renderHook(() =>
-      useTablePage({}),
-    );
+    const { result } = renderHook(() => useTablePage({}));
 
     expect(result.current.actions).toHaveLength(0);
   });

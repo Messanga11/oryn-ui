@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { createContext, useContext, type ReactNode } from "react";
+import { type ReactNode, createContext, useContext } from 'react';
 
 export interface FormBuilderStyle {
   /** className applied to the <form> element */
@@ -20,17 +20,12 @@ export interface FormBuilderStyleProviderProps {
   readonly children: ReactNode;
 }
 
-export function FormBuilderStyleProvider({
-  style,
-  children,
-}: FormBuilderStyleProviderProps) {
+export function FormBuilderStyleProvider({ style, children }: FormBuilderStyleProviderProps) {
   const parent = useContext(FormBuilderStyleContext);
   const merged = { ...parent, ...style };
 
   return (
-    <FormBuilderStyleContext.Provider value={merged}>
-      {children}
-    </FormBuilderStyleContext.Provider>
+    <FormBuilderStyleContext.Provider value={merged}>{children}</FormBuilderStyleContext.Provider>
   );
 }
 

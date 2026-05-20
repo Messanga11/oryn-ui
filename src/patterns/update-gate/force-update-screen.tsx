@@ -1,9 +1,9 @@
 import { Linking } from 'react-native';
-import { PageLayout } from '../../layout/page-layout';
-import { Column } from '../../layout/column';
-import { Typography } from '../../primitives/typography';
 import { Button } from '../../components/button';
 import { Card } from '../../components/card';
+import { Column } from '../../layout/column';
+import { PageLayout } from '../../layout/page-layout';
+import { Typography } from '../../primitives/typography';
 
 export interface ForceUpdateScreenProps {
   latestVersion: string;
@@ -44,8 +44,8 @@ export function ForceUpdateScreen({
             Mise à jour requise
           </Typography>
           <Typography variant="body" color="secondary" align="center">
-            La version {latestVersion} est maintenant disponible. Mettez à jour
-            pour continuer à utiliser l'application.
+            La version {latestVersion} est maintenant disponible. Mettez à jour pour continuer à
+            utiliser l'application.
           </Typography>
         </Column>
 
@@ -60,11 +60,7 @@ export function ForceUpdateScreen({
           </Card>
         ) : null}
 
-        <Button
-          onPress={handleUpdate}
-          size="lg"
-          className="w-full"
-        >
+        <Button onPress={handleUpdate} size="lg" className="w-full">
           {platform === 'web' ? 'Actualiser la page' : 'Mettre à jour'}
         </Button>
       </Column>

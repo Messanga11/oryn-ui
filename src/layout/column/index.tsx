@@ -72,11 +72,7 @@ export function Column({
   return (
     <View
       className={composedClass}
-      style={[
-        span ? { flex: span } : undefined,
-        gapStyle,
-        style,
-      ]}
+      style={[span ? { flex: span } : undefined, gapStyle, style]}
       {...props}
     />
   );

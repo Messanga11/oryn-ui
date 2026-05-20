@@ -36,8 +36,7 @@ export function Image({
   priority = 'normal',
   cachePolicy = 'memory-disk',
 }: ImageProps) {
-  const resolvedSource =
-    typeof source === 'string' ? { uri: source } : source;
+  const resolvedSource = typeof source === 'string' ? { uri: source } : source;
 
   return (
     <ExpoImage
@@ -46,7 +45,7 @@ export function Image({
       className={className}
       style={[{ width, height } as ImageStyle, style]}
       accessibilityLabel={alt}
-      placeholder={placeholder ? { color: placeholder } : undefined}
+      placeholder={placeholder}
       priority={priority}
       cachePolicy={cachePolicy}
     />

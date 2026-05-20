@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react';
-import { useState } from 'react';
 import { Box } from '../../primitives/box';
 import { Pressable } from '../../primitives/pressable';
-import { Typography } from '../../primitives/typography';
 import { ScrollContainer } from '../../primitives/scroll-container';
+import { Typography } from '../../primitives/typography';
 
 export interface TabItem {
   key: string;
@@ -20,13 +19,7 @@ export interface TabsProps {
   className?: string;
 }
 
-export function Tabs({
-  tabs,
-  activeKey,
-  onChange,
-  scrollable = false,
-  className,
-}: TabsProps) {
+export function Tabs({ tabs, activeKey, onChange, scrollable = false, className }: TabsProps) {
   const TabBar = (
     <Box className={['flex-row border-b border-bg-border', className].filter(Boolean).join(' ')}>
       {tabs.map((tab) => {

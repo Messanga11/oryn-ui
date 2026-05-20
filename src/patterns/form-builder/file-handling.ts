@@ -29,11 +29,7 @@ export function extractFiles(
           if (item instanceof File) {
             fullOrder.push(`__new_${actualFiles.length}__`);
             actualFiles.push(item);
-          } else if (
-            item !== null &&
-            typeof item === "object" &&
-            "id" in item
-          ) {
+          } else if (item !== null && typeof item === 'object' && 'id' in item) {
             const id = (item as ExistingImage).id;
             fullOrder.push(id);
             existingIds.push(id);
@@ -52,7 +48,7 @@ export function extractFiles(
       }
       continue;
     }
-    if (raw[key] === "" || raw[key] === undefined) continue;
+    if (raw[key] === '' || raw[key] === undefined) continue;
     cleaned[key] = raw[key];
   }
 

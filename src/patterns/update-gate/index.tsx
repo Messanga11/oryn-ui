@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
+import { Column } from '../../layout/column';
 import { ForceUpdateScreen } from './force-update-screen';
 import { UpdateSuggestionBanner } from './update-suggestion-banner';
-import { Column } from '../../layout/column';
 
 export interface VersionCheckResult {
   updateRequired?: boolean;
@@ -46,11 +46,7 @@ export interface UpdateGateProps {
  * </UpdateGate>
  * ```
  */
-export function UpdateGate({
-  platform,
-  children,
-  versionCheck,
-}: UpdateGateProps) {
+export function UpdateGate({ platform, children, versionCheck }: UpdateGateProps) {
   // Loading: render children without flash
   if (versionCheck === undefined) return <>{children}</>;
 
@@ -61,7 +57,9 @@ export function UpdateGate({
         latestVersion={versionCheck.latestVersion ?? ''}
         platform={platform}
         {...(versionCheck.storeUrl !== undefined ? { storeUrl: versionCheck.storeUrl } : {})}
-        {...(versionCheck.releaseNotes !== undefined ? { releaseNotes: versionCheck.releaseNotes } : {})}
+        {...(versionCheck.releaseNotes !== undefined
+          ? { releaseNotes: versionCheck.releaseNotes }
+          : {})}
       />
     );
   }

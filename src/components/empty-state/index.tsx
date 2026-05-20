@@ -22,10 +22,7 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <Box
-      className={[
-        'flex-1 items-center justify-center py-16 px-8',
-        className,
-      ]
+      className={['flex-1 items-center justify-center py-16 px-8', className]
         .filter(Boolean)
         .join(' ')}
     >

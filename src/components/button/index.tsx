@@ -94,7 +94,14 @@ export function Button({
         <>
           {leftIcon ? <>{leftIcon}</> : null}
           <Typography
-            className={[TEXT_SIZE_CLASS[size], TEXT_VARIANT_CLASS[variant], leftIcon ? 'ml-2' : '', rightIcon ? 'mr-2' : ''].filter(Boolean).join(' ')}
+            className={[
+              TEXT_SIZE_CLASS[size],
+              TEXT_VARIANT_CLASS[variant],
+              leftIcon ? 'ml-2' : '',
+              rightIcon ? 'mr-2' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
           >
             {children}
           </Typography>

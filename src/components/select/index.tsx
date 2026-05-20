@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Box } from '../../primitives/box';
-import { Typography } from '../../primitives/typography';
 import { Pressable } from '../../primitives/pressable';
+import { Typography } from '../../primitives/typography';
 import { Sheet } from '../sheet';
-import { Checkbox } from '../checkbox';
 
 export interface SelectOption {
   label: string;
@@ -37,9 +36,7 @@ export function Select({
   const selected = options.find((o) => o.value === value);
   const hasError = !!errorText;
 
-  const borderClass = hasError
-    ? 'border-error'
-    : 'border-bg-border-strong';
+  const borderClass = hasError ? 'border-error' : 'border-bg-border-strong';
 
   return (
     <Box className={['w-full', className].filter(Boolean).join(' ')}>
@@ -59,13 +56,12 @@ export function Select({
           .filter(Boolean)
           .join(' ')}
       >
-        <Typography
-          variant="body"
-          color={selected ? 'primary' : 'muted'}
-        >
+        <Typography variant="body" color={selected ? 'primary' : 'muted'}>
           {selected ? selected.label : placeholder}
         </Typography>
-        <Typography variant="caption" color="muted">▼</Typography>
+        <Typography variant="caption" color="muted">
+          ▼
+        </Typography>
       </Pressable>
 
       {hasError ? (

@@ -18,11 +18,7 @@ export function LoadingState({
   className,
 }: LoadingStateProps) {
   if (children) {
-    return (
-      <Box className={['flex-1', className].filter(Boolean).join(' ')}>
-        {children}
-      </Box>
-    );
+    return <Box className={['flex-1', className].filter(Boolean).join(' ')}>{children}</Box>;
   }
 
   const items = Array.from({ length: count }, (_, i) => i);

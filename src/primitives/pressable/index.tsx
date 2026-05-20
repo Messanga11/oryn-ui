@@ -12,12 +12,7 @@ export interface PressableProps extends RNPressableProps {
  * Replaces <button>, <TouchableOpacity> everywhere.
  * Default touch target ≥ 48px (WCAG / Apple HIG).
  */
-export function Pressable({
-  className,
-  style,
-  hitSlop = 8,
-  ...props
-}: PressableProps) {
+export function Pressable({ className, style, hitSlop = 8, ...props }: PressableProps) {
   return (
     <RNPressable
       className={className}

@@ -12,11 +12,7 @@ export interface SwitchProps {
 
 export function Switch({ value, onChange, label, disabled, className }: SwitchProps) {
   return (
-    <Box
-      className={['flex-row items-center justify-between', className]
-        .filter(Boolean)
-        .join(' ')}
-    >
+    <Box className={['flex-row items-center justify-between', className].filter(Boolean).join(' ')}>
       {label ? <Typography variant="body">{label}</Typography> : null}
       <RNSwitch
         value={value}

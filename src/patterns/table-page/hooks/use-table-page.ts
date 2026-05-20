@@ -1,9 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
-import type {
-  TablePageAction,
-  UseTablePageOptions,
-  UseTablePageReturn,
-} from "../core/types";
+import { useCallback, useMemo, useState } from 'react';
+import type { TablePageAction, UseTablePageOptions, UseTablePageReturn } from '../core/types';
 
 export function useTablePage<TData>(
   options: UseTablePageOptions<TData>,
@@ -83,16 +79,16 @@ export function useTablePage<TData>(
 
     if (hasEditForm) {
       built.push({
-        label: labels?.edit ?? "Edit",
+        label: labels?.edit ?? 'Edit',
         onClick: openEdit,
       });
     }
 
     if (onDelete) {
       built.push({
-        label: labels?.delete ?? "Delete",
+        label: labels?.delete ?? 'Delete',
         onClick: openDelete,
-        variant: "destructive",
+        variant: 'destructive',
       });
     }
 

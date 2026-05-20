@@ -52,10 +52,7 @@ export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
 
   return (
     <Box
-      className={[
-        'rounded-full bg-primary-500/20 items-center justify-center',
-        className,
-      ]
+      className={['rounded-full bg-primary-500/20 items-center justify-center', className]
         .filter(Boolean)
         .join(' ')}
       style={{ width: px, height: px }}

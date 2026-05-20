@@ -1,68 +1,65 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
 
-describe("FormBuilder", () => {
-  it("renders fields using registered renderers from provider", async () => {
-    const { FormBuilder, FormBuilderProvider } = await import("../../index");
+describe('FormBuilder', () => {
+  it('renders fields using registered renderers from provider', async () => {
+    const { FormBuilder, FormBuilderProvider } = await import('../../index');
 
     const TextRenderer = ({ config }: { field: unknown; config: { label: string } }) => (
-      <label>{config.label}</label>
+      <span>{config.label}</span>
     );
 
-    const fields = [
-      { name: "username", type: "text" as const, label: "Username" },
-    ];
+    const fields = [{ name: 'username', type: 'text' as const, label: 'Username' }];
 
     render(
       <FormBuilderProvider renderers={{ text: TextRenderer as never }}>
-        <FormBuilder
-          fields={fields}
-          onSubmit={vi.fn()}
-          defaultValues={{ username: "" }}
-        />
+        <FormBuilder fields={fields} onSubmit={vi.fn()} defaultValues={{ username: '' }} />
       </FormBuilderProvider>,
     );
 
-    expect(screen.getByText("Username")).toBeInTheDocument();
+    expect(screen.getByText('Username')).toBeInTheDocument();
   });
 
-  it("renders component fields directly without a renderer", async () => {
-    const { FormBuilder } = await import("../../index");
+  it('renders component fields directly without a renderer', async () => {
+    const { FormBuilder } = await import('../../index');
 
     const fields = [
       {
-        name: "divider",
-        type: "component" as const,
+        name: 'divider',
+        type: 'component' as const,
         component: <hr data-testid="divider" />,
       },
     ];
 
-    render(
-      <FormBuilder
-        fields={fields}
-        onSubmit={vi.fn()}
-        defaultValues={{}}
-      />,
-    );
+    render(<FormBuilder fields={fields} onSubmit={vi.fn()} defaultValues={{}} />);
 
-    expect(screen.getByTestId("divider")).toBeInTheDocument();
+    expect(screen.getByTestId('divider')).toBeInTheDocument();
   });
 
-  it("calls onSubmit with cleaned form data (empty strings excluded)", async () => {
-    const { FormBuilder, FormBuilderProvider } = await import("../../index");
+  it('calls onSubmit with cleaned form data (empty strings excluded)', async () => {
+    const { FormBuilder, FormBuilderProvider } = await import('../../index');
 
-    const onSubmit = vi.fn().mockResolvedValue({ id: "1" });
+    const onSubmit = vi.fn().mockResolvedValue({ id: '1' });
 
-    const InputRenderer = ({ field, config }: {
-      field: { name: string; state: { value: unknown }; handleChange: (v: string) => void; handleBlur: () => void };
+    const InputRenderer = ({
+      field,
+      config,
+    }: {
+      field: {
+        name: string;
+        state: { value: unknown };
+        handleChange: (v: string) => void;
+        handleBlur: () => void;
+      };
       config: { label: string };
     }) => (
       <div>
-        <label>{config.label}</label>
+        <label htmlFor={field.name}>{config.label}</label>
         <input
+          id={field.name}
           data-testid={field.name}
-          value={(field.state.value as string) ?? ""}
+          value={(field.state.value as string) ?? ''}
           onChange={(e) => field.handleChange(e.target.value)}
           onBlur={field.handleBlur}
         />
@@ -70,114 +67,102 @@ describe("FormBuilder", () => {
     );
 
     const fields = [
-      { name: "name", type: "text" as const, label: "Name" },
-      { name: "bio", type: "text" as const, label: "Bio" },
+      { name: 'name', type: 'text' as const, label: 'Name' },
+      { name: 'bio', type: 'text' as const, label: 'Bio' },
     ];
 
     render(
       <FormBuilderProvider renderers={{ text: InputRenderer as never }}>
-        <FormBuilder
-          fields={fields}
-          onSubmit={onSubmit}
-          defaultValues={{ name: "", bio: "" }}
-        >
+        <FormBuilder fields={fields} onSubmit={onSubmit} defaultValues={{ name: '', bio: '' }}>
           <button type="submit">Submit</button>
         </FormBuilder>
       </FormBuilderProvider>,
     );
 
     const user = userEvent.setup();
-    await user.type(screen.getByTestId("name"), "John");
-    await user.click(screen.getByText("Submit"));
+    await user.type(screen.getByTestId('name'), 'John');
+    await user.click(screen.getByText('Submit'));
 
     await waitFor(() => {
-      expect(onSubmit).toHaveBeenCalledWith(
-        expect.objectContaining({ name: "John" }),
-      );
+      expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({ name: 'John' }));
     });
 
     // Empty string "bio" should be excluded from the submitted data
     const submittedData = onSubmit.mock.calls[0][0];
-    expect(submittedData).not.toHaveProperty("bio");
+    expect(submittedData).not.toHaveProperty('bio');
   });
 
-  it("calls onSuccess after successful submission", async () => {
-    const { FormBuilder } = await import("../../index");
+  it('calls onSuccess after successful submission', async () => {
+    const { FormBuilder } = await import('../../index');
 
-    const result = { id: "1" };
+    const result = { id: '1' };
     const onSubmit = vi.fn().mockResolvedValue(result);
     const onSuccess = vi.fn();
 
     render(
-      <FormBuilder
-        fields={[]}
-        onSubmit={onSubmit}
-        onSuccess={onSuccess}
-        defaultValues={{}}
-      >
+      <FormBuilder fields={[]} onSubmit={onSubmit} onSuccess={onSuccess} defaultValues={{}}>
         <button type="submit">Submit</button>
       </FormBuilder>,
     );
 
-    await userEvent.setup().click(screen.getByText("Submit"));
+    await userEvent.setup().click(screen.getByText('Submit'));
 
     await waitFor(() => {
       expect(onSuccess).toHaveBeenCalledWith(result, undefined, undefined);
     });
   });
 
-  it("calls onError when submission fails", async () => {
-    const { FormBuilder } = await import("../../index");
+  it('calls onError when submission fails', async () => {
+    const { FormBuilder } = await import('../../index');
 
-    const error = new Error("Server error");
+    const error = new Error('Server error');
     const onSubmit = vi.fn().mockRejectedValue(error);
     const onError = vi.fn();
 
     render(
-      <FormBuilder
-        fields={[]}
-        onSubmit={onSubmit}
-        onError={onError}
-        defaultValues={{}}
-      >
+      <FormBuilder fields={[]} onSubmit={onSubmit} onError={onError} defaultValues={{}}>
         <button type="submit">Submit</button>
       </FormBuilder>,
     );
 
-    await userEvent.setup().click(screen.getByText("Submit"));
+    await userEvent.setup().click(screen.getByText('Submit'));
 
     await waitFor(() => {
       expect(onError).toHaveBeenCalledWith(error);
     });
   });
 
-  it("separates file fields from regular fields on submit", async () => {
-    const { FormBuilder, FormBuilderProvider } = await import("../../index");
+  it('separates file fields from regular fields on submit', async () => {
+    const { FormBuilder, FormBuilderProvider } = await import('../../index');
 
-    const onSubmit = vi.fn().mockResolvedValue({ id: "1" });
+    const onSubmit = vi.fn().mockResolvedValue({ id: '1' });
     const onSuccess = vi.fn();
 
-    const file = new File(["content"], "photo.jpg", { type: "image/jpeg" });
+    const file = new File(['content'], 'photo.jpg', { type: 'image/jpeg' });
 
-    const FileRenderer = ({ field, config }: {
-      field: { name: string; state: { value: unknown }; handleChange: (v: unknown) => void; handleBlur: () => void };
+    const FileRenderer = ({
+      field,
+      config,
+    }: {
+      field: {
+        name: string;
+        state: { value: unknown };
+        handleChange: (v: unknown) => void;
+        handleBlur: () => void;
+      };
       config: { label: string };
     }) => (
       <div>
-        <label>{config.label}</label>
-        <button
-          type="button"
-          data-testid="add-file"
-          onClick={() => field.handleChange([file])}
-        >
+        <span>{config.label}</span>
+        <button type="button" data-testid="add-file" onClick={() => field.handleChange([file])}>
           Add file
         </button>
       </div>
     );
 
     const fields = [
-      { name: "title", type: "text" as const, label: "Title" },
-      { name: "images", type: "file" as const, label: "Images" },
+      { name: 'title', type: 'text' as const, label: 'Title' },
+      { name: 'images', type: 'file' as const, label: 'Images' },
     ];
 
     render(
@@ -186,7 +171,7 @@ describe("FormBuilder", () => {
           fields={fields}
           onSubmit={onSubmit}
           onSuccess={onSuccess}
-          defaultValues={{ title: "Test", images: [] }}
+          defaultValues={{ title: 'Test', images: [] }}
         >
           <button type="submit">Submit</button>
         </FormBuilder>
@@ -194,8 +179,8 @@ describe("FormBuilder", () => {
     );
 
     const user = userEvent.setup();
-    await user.click(screen.getByTestId("add-file"));
-    await user.click(screen.getByText("Submit"));
+    await user.click(screen.getByTestId('add-file'));
+    await user.click(screen.getByText('Submit'));
 
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalled();
@@ -203,21 +188,17 @@ describe("FormBuilder", () => {
 
     // onSubmit should receive cleaned data without file fields
     const submittedData = onSubmit.mock.calls[0][0];
-    expect(submittedData).toHaveProperty("title", "Test");
-    expect(submittedData).not.toHaveProperty("images");
+    expect(submittedData).toHaveProperty('title', 'Test');
+    expect(submittedData).not.toHaveProperty('images');
 
     // onSuccess should receive files separately
     await waitFor(() => {
-      expect(onSuccess).toHaveBeenCalledWith(
-        { id: "1" },
-        { images: [file] },
-        undefined,
-      );
+      expect(onSuccess).toHaveBeenCalledWith({ id: '1' }, { images: [file] }, undefined);
     });
   });
 
-  it("renders children (e.g. submit button)", async () => {
-    const { FormBuilder } = await import("../../index");
+  it('renders children (e.g. submit button)', async () => {
+    const { FormBuilder } = await import('../../index');
 
     render(
       <FormBuilder fields={[]} onSubmit={vi.fn()} defaultValues={{}}>
@@ -225,35 +206,36 @@ describe("FormBuilder", () => {
       </FormBuilder>,
     );
 
-    expect(screen.getByText("Go")).toBeInTheDocument();
+    expect(screen.getByText('Go')).toBeInTheDocument();
   });
 
-  it("accepts className prop on the form element", async () => {
-    const { FormBuilder } = await import("../../index");
+  it('accepts className prop on the form element', async () => {
+    const { FormBuilder } = await import('../../index');
 
     const { container } = render(
-      <FormBuilder
-        fields={[]}
-        onSubmit={vi.fn()}
-        defaultValues={{}}
-        className="my-form"
-      >
+      <FormBuilder fields={[]} onSubmit={vi.fn()} defaultValues={{}} className="my-form">
         <button type="submit">Go</button>
       </FormBuilder>,
     );
 
-    expect(container.querySelector("form")).toHaveClass("my-form");
+    expect(container.querySelector('form')).toHaveClass('my-form');
   });
 
-  it("passes validators to field validation functions", async () => {
-    const { FormBuilder, FormBuilderProvider, createValidators } = await import("../../index");
+  it('passes validators to field validation functions', async () => {
+    const { FormBuilder, FormBuilderProvider, createValidators } = await import('../../index');
 
-    const validators = createValidators({ required: "Champ requis" });
+    const validators = createValidators({ required: 'Champ requis' });
 
-    const InputRenderer = ({ field, config }: {
+    const InputRenderer = ({
+      field,
+      config,
+    }: {
       field: {
         name: string;
-        state: { value: unknown; meta: { errors: unknown[]; errorMap: Record<string, string | undefined> } };
+        state: {
+          value: unknown;
+          meta: { errors: unknown[]; errorMap: Record<string, string | undefined> };
+        };
         handleChange: (v: string) => void;
         handleBlur: () => void;
       };
@@ -262,10 +244,11 @@ describe("FormBuilder", () => {
       const error = field.state.meta.errorMap?.onSubmit ?? field.state.meta.errors[0];
       return (
         <div>
-          <label>{config.label}</label>
+          <label htmlFor={field.name}>{config.label}</label>
           <input
+            id={field.name}
             data-testid={field.name}
-            value={(field.state.value as string) ?? ""}
+            value={(field.state.value as string) ?? ''}
             onChange={(e) => field.handleChange(e.target.value)}
             onBlur={field.handleBlur}
           />
@@ -276,9 +259,9 @@ describe("FormBuilder", () => {
 
     const fields = [
       {
-        name: "email",
-        type: "text" as const,
-        label: "Email",
+        name: 'email',
+        type: 'text' as const,
+        label: 'Email',
         validation: (v: unknown) => {
           const typed = v as ReturnType<typeof createValidators>;
           return typed.required();
@@ -292,7 +275,7 @@ describe("FormBuilder", () => {
           fields={fields}
           onSubmit={vi.fn()}
           validators={validators}
-          defaultValues={{ email: "" }}
+          defaultValues={{ email: '' }}
         >
           <button type="submit">Submit</button>
         </FormBuilder>
@@ -300,28 +283,26 @@ describe("FormBuilder", () => {
     );
 
     const user = userEvent.setup();
-    await user.click(screen.getByText("Submit"));
+    await user.click(screen.getByText('Submit'));
 
     await waitFor(() => {
-      expect(screen.getByTestId("email-error")).toHaveTextContent("Champ requis");
+      expect(screen.getByTestId('email-error')).toHaveTextContent('Champ requis');
     });
   });
 
-  it("skips fields without a registered renderer (no crash)", async () => {
-    const { FormBuilder } = await import("../../index");
+  it('skips fields without a registered renderer (no crash)', async () => {
+    const { FormBuilder } = await import('../../index');
 
-    const fields = [
-      { name: "name", type: "text" as const, label: "Name" },
-    ];
+    const fields = [{ name: 'name', type: 'text' as const, label: 'Name' }];
 
     // No provider = no renderers registered
     const { container } = render(
-      <FormBuilder fields={fields} onSubmit={vi.fn()} defaultValues={{ name: "" }}>
+      <FormBuilder fields={fields} onSubmit={vi.fn()} defaultValues={{ name: '' }}>
         <button type="submit">Go</button>
       </FormBuilder>,
     );
 
     // Should render the form without crashing
-    expect(container.querySelector("form")).toBeInTheDocument();
+    expect(container.querySelector('form')).toBeInTheDocument();
   });
 });

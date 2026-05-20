@@ -2,6 +2,7 @@ import { TextArea } from '../../../components/text-area';
 import type { FieldRendererComponentProps } from '../core/types';
 
 export function TextareaRenderer({ field, config }: FieldRendererComponentProps) {
+  if (config.type === 'component') return null;
   const error = field.state.meta.errors[0] as string | undefined;
 
   return (

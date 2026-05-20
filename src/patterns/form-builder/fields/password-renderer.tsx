@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Input } from '../../../components/input';
 import { IconButton } from '../../../components/icon-button';
+import { Input } from '../../../components/input';
 import { Typography } from '../../../primitives/typography';
 import type { FieldRendererComponentProps } from '../core/types';
 
 export function PasswordRenderer({ field, config }: FieldRendererComponentProps) {
+  if (config.type === 'component') return null;
   const [visible, setVisible] = useState(false);
   const error = field.state.meta.errors[0] as string | undefined;
 

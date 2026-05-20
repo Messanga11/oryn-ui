@@ -1,9 +1,9 @@
 import type { FieldRendererRegistry } from '../core/types';
-import { TextRenderer } from './text-renderer';
-import { PasswordRenderer } from './password-renderer';
-import { TextareaRenderer } from './textarea-renderer';
-import { SelectRenderer } from './select-renderer';
 import { CheckboxRenderer } from './checkbox-renderer';
+import { PasswordRenderer } from './password-renderer';
+import { SelectRenderer } from './select-renderer';
+import { TextRenderer } from './text-renderer';
+import { TextareaRenderer } from './textarea-renderer';
 
 /**
  * Default field renderer registry using @oryn/ui primitives.

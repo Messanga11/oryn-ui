@@ -1,20 +1,20 @@
 import type { ComponentType } from 'react';
 import { Column } from '../../layout/column';
-import type { VexBlock } from '../types';
-import { HeroSection } from '../hero-section';
 import { ContentSection } from '../content-section';
 import { CtaSection } from '../cta-section';
-import { FeatureSection } from '../feature-section';
 import { CustomBlock } from '../custom-block';
+import { FeatureSection } from '../feature-section';
+import { HeroSection } from '../hero-section';
+import type { VexBlock } from '../types';
 
 /**
  * Built-in block type → component registry.
  */
 const BUILT_IN_REGISTRY: Record<string, ComponentType<VexBlock>> = {
-  hero: HeroSection as ComponentType<VexBlock>,
-  content: ContentSection as ComponentType<VexBlock>,
-  cta: CtaSection as ComponentType<VexBlock>,
-  features: FeatureSection as ComponentType<VexBlock>,
+  hero: HeroSection as unknown as ComponentType<VexBlock>,
+  content: ContentSection as unknown as ComponentType<VexBlock>,
+  cta: CtaSection as unknown as ComponentType<VexBlock>,
+  features: FeatureSection as unknown as ComponentType<VexBlock>,
 };
 
 export interface BlockRendererProps {

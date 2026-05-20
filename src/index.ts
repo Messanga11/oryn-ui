@@ -6,7 +6,13 @@ export { Box } from './primitives/box';
 export type { BoxProps } from './primitives/box';
 
 export { Typography } from './primitives/typography';
-export type { TypographyProps, TextAlign, TextColor, TextTone, FontWeight } from './primitives/typography';
+export type {
+  TypographyProps,
+  TextAlign,
+  TextColor,
+  TextTone,
+  FontWeight,
+} from './primitives/typography';
 
 export { Image } from './primitives/image';
 export type { ImageProps, ImageContentFit } from './primitives/image';
@@ -111,7 +117,11 @@ export type { LoadingStateProps, LoadingStateLayout } from './components/loading
 
 // ─── Patterns ──────────────────────────────────────────────────────────────
 // FormBuilder
-export { FormBuilder, FormBuilderProvider, FormBuilderStyleProvider } from './patterns/form-builder';
+export {
+  FormBuilder,
+  FormBuilderProvider,
+  FormBuilderStyleProvider,
+} from './patterns/form-builder';
 export { defaultRenderers as formBuilderDefaultRenderers } from './patterns/form-builder';
 export { createValidators } from './patterns/form-builder';
 export type {

@@ -1,4 +1,4 @@
-import { createContext, useContext, type ReactNode } from 'react';
+import { type ReactNode, createContext, useContext } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -29,9 +29,7 @@ interface GluestackUIProviderProps {
  */
 function GluestackUIProvider({ mode, children }: GluestackUIProviderProps) {
   return (
-    <GluestackContext.Provider value={{ colorMode: mode }}>
-      {children}
-    </GluestackContext.Provider>
+    <GluestackContext.Provider value={{ colorMode: mode }}>{children}</GluestackContext.Provider>
   );
 }
 
@@ -54,9 +52,7 @@ export function UIProvider({ children }: UIProviderProps) {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <GluestackUIProvider mode="dark">
-          {children}
-        </GluestackUIProvider>
+        <GluestackUIProvider mode="dark">{children}</GluestackUIProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

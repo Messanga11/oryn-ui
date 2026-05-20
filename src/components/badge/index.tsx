@@ -67,7 +67,7 @@ export function Badge({
   tone = 'brand',
   children,
   dot = false,
-  size = 'md',
+  size: _size = 'md',
   className,
 }: BadgeProps) {
   // Standalone dot indicator (CRIT-30, DESIGN-05)
@@ -98,7 +98,10 @@ export function Badge({
     >
       {dot ? (
         <Box
-          className={['w-1.5 h-1.5 rounded-full mr-1.5', TEXT_CLASS[variant].replace('text-', 'bg-')]
+          className={[
+            'w-1.5 h-1.5 rounded-full mr-1.5',
+            TEXT_CLASS[variant].replace('text-', 'bg-'),
+          ]
             .filter(Boolean)
             .join(' ')}
         />

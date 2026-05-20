@@ -10,21 +10,21 @@
 import type { UseMutationResult } from '@tanstack/react-query';
 import type { ColumnDef } from '@tanstack/react-table';
 import { type ReactNode, useCallback, useMemo } from 'react';
-import type { ModelMessages, ModelMessagesResolver } from './core/types';
-import { unwrapResponse } from './core/types';
-import { useTablePageConfig } from './core/table-page-context';
-import { useTablePage } from './hooks/use-table-page';
-import { Box } from '../../primitives/box';
-import { Typography } from '../../primitives/typography';
-import { Button } from '../../components/button';
 import { AlertDialog } from '../../components/alert-dialog';
-import { Sheet } from '../../components/sheet';
+import { Button } from '../../components/button';
+import { EmptyState } from '../../components/empty-state';
+import { ErrorState } from '../../components/error-state';
 import { Input } from '../../components/input';
 import { LoadingState } from '../../components/loading-state';
-import { ErrorState } from '../../components/error-state';
-import { EmptyState } from '../../components/empty-state';
-import { Row } from '../../layout/row';
+import { Sheet } from '../../components/sheet';
 import { Column } from '../../layout/column';
+import { Row } from '../../layout/row';
+import { Box } from '../../primitives/box';
+import { Typography } from '../../primitives/typography';
+import { useTablePageConfig } from './core/table-page-context';
+import type { ModelMessages, ModelMessagesResolver } from './core/types';
+import { unwrapResponse } from './core/types';
+import { useTablePage } from './hooks/use-table-page';
 
 export interface TablePageLabels {
   create?: string;
@@ -215,7 +215,9 @@ export function TablePage<TData, TFormData = any>({
           onError={tablePage.handleFormError}
         >
           <Button
-            onPress={() => {/* FormBuilder submit is triggered via formRef */}}
+            onPress={() => {
+              /* FormBuilder submit is triggered via formRef */
+            }}
             size="lg"
             loading={isPending}
             className="mt-4 w-full"
@@ -276,10 +278,7 @@ export function TablePage<TData, TFormData = any>({
       {resolvedIsLoading ? (
         <LoadingState layout="list" />
       ) : resolvedIsError ? (
-        <ErrorState
-          message={error?.message}
-          onRetry={query ? () => query.refetch() : onRetry}
-        />
+        <ErrorState message={error?.message} onRetry={query ? () => query.refetch() : onRetry} />
       ) : resolvedData.length === 0 ? (
         <EmptyState
           title={mm.emptyTitle ?? labels.noResults}
@@ -288,14 +287,14 @@ export function TablePage<TData, TFormData = any>({
       ) : renderRow ? (
         <Column gap={8}>
           {resolvedData.map((item, i) => (
-            <Box key={i}>{renderRow(item)}</Box>
+            <Box key={(item as { id?: string }).id ?? i}>{renderRow(item)}</Box>
           ))}
         </Column>
       ) : (
         <Column gap={8}>
           {resolvedData.map((item, i) => (
             <Row
-              key={i}
+              key={(item as { id?: string }).id ?? i}
               justify="between"
               align="center"
               className="bg-bg-surface rounded-lg border border-bg-border px-4 py-3"
@@ -319,7 +318,7 @@ export function TablePage<TData, TFormData = any>({
       )}
 
       {/* Create/Edit Sheet */}
-      {(hasFormBuilder || hasCustomForm) ? (
+      {hasFormBuilder || hasCustomForm ? (
         <Sheet
           open={tablePage.sheetOpen}
           onClose={tablePage.closeSheet}

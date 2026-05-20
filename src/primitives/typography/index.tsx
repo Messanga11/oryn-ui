@@ -20,8 +20,24 @@ const VARIANT_CLASS: Record<TypographyVariant, string> = {
 };
 
 export type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify';
-export type TextColor = 'primary' | 'secondary' | 'muted' | 'disabled' | 'error' | 'success' | 'warning' | 'info';
-export type TextTone = 'default' | 'muted' | 'secondary' | 'disabled' | 'error' | 'success' | 'warning' | 'info';
+export type TextColor =
+  | 'primary'
+  | 'secondary'
+  | 'muted'
+  | 'disabled'
+  | 'error'
+  | 'success'
+  | 'warning'
+  | 'info';
+export type TextTone =
+  | 'default'
+  | 'muted'
+  | 'secondary'
+  | 'disabled'
+  | 'error'
+  | 'success'
+  | 'warning'
+  | 'info';
 export type FontWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
 
 const COLOR_CLASS: Record<TextColor, string> = {

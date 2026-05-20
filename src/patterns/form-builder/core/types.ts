@@ -1,18 +1,18 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 export type FieldType =
-  | "text"
-  | "email"
-  | "password"
-  | "phone"
-  | "otp"
-  | "checkbox"
-  | "number"
-  | "select"
-  | "async-select"
-  | "textarea"
-  | "file"
-  | "component";
+  | 'text'
+  | 'email'
+  | 'password'
+  | 'phone'
+  | 'otp'
+  | 'checkbox'
+  | 'number'
+  | 'select'
+  | 'async-select'
+  | 'textarea'
+  | 'file'
+  | 'component';
 
 export interface BaseFieldConfig {
   name: string;
@@ -27,38 +27,38 @@ export interface BaseFieldConfig {
 }
 
 export interface TextFieldConfig extends BaseFieldConfig {
-  type: "text" | "email";
+  type: 'text' | 'email';
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-  props?: React.ComponentProps<"input">;
+  props?: React.ComponentProps<'input'>;
 }
 
 export interface PasswordFieldConfig extends BaseFieldConfig {
-  type: "password";
-  props?: React.ComponentProps<"input">;
+  type: 'password';
+  props?: React.ComponentProps<'input'>;
 }
 
 export interface PhoneFieldConfig extends BaseFieldConfig {
-  type: "phone";
-  props?: React.ComponentProps<"input">;
+  type: 'phone';
+  props?: React.ComponentProps<'input'>;
 }
 
 export interface OTPFieldConfig extends BaseFieldConfig {
-  type: "otp";
+  type: 'otp';
   maxLength?: number;
-  props?: React.ComponentProps<"input">;
+  props?: React.ComponentProps<'input'>;
 }
 
 export interface CheckboxFieldConfig extends BaseFieldConfig {
-  type: "checkbox";
-  props?: React.ComponentProps<"input">;
+  type: 'checkbox';
+  props?: React.ComponentProps<'input'>;
 }
 
 export interface NumberFieldConfig extends BaseFieldConfig {
-  type: "number";
+  type: 'number';
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-  props?: React.ComponentProps<"input">;
+  props?: React.ComponentProps<'input'>;
 }
 
 export interface SelectOption {
@@ -67,40 +67,40 @@ export interface SelectOption {
 }
 
 export interface SelectFieldConfig extends BaseFieldConfig {
-  type: "select";
+  type: 'select';
   options: SelectOption[];
-  props?: React.ComponentProps<"select">;
+  props?: React.ComponentProps<'select'>;
 }
 
 export interface AsyncSelectFieldConfig extends BaseFieldConfig {
-  type: "async-select";
+  type: 'async-select';
   fetchOptions: (search: string) => Promise<SelectOption[]>;
   debounceMs?: number;
   noResultsText?: string;
   loadingText?: string;
-  props?: React.ComponentProps<"input">;
+  props?: React.ComponentProps<'input'>;
 }
 
 export interface TextareaFieldConfig extends BaseFieldConfig {
-  type: "textarea";
+  type: 'textarea';
   rows?: number;
-  props?: React.ComponentProps<"textarea">;
+  props?: React.ComponentProps<'textarea'>;
 }
 
 export interface FileFieldConfig extends BaseFieldConfig {
-  type: "file";
+  type: 'file';
   accept?: string;
   maxFiles?: number;
   maxSizeBytes?: number;
   multiple?: boolean;
-  props?: React.ComponentProps<"input">;
+  props?: React.ComponentProps<'input'>;
 }
 
 export interface ComponentFieldConfig {
-  type: "component";
+  type: 'component';
   name: string;
   component: ReactNode;
-  props?: React.ComponentProps<"div">;
+  props?: React.ComponentProps<'div'>;
   /** Number of grid columns this field should span */
   colSpan?: number;
 }
@@ -157,6 +157,4 @@ export interface FieldRendererComponentProps {
 
 export type FieldRendererComponent = React.ComponentType<FieldRendererComponentProps>;
 
-export type FieldRendererRegistry = Partial<
-  Record<FieldType, FieldRendererComponent>
->;
+export type FieldRendererRegistry = Partial<Record<FieldType, FieldRendererComponent>>;

@@ -28,9 +28,7 @@ export function SectionLayout({
       {hasHeader && (
         <Box className="flex-row items-start justify-between mb-3">
           <Box className="flex-1 mr-2">
-            {title ? (
-              <Typography variant="h3">{title}</Typography>
-            ) : null}
+            {title ? <Typography variant="h3">{title}</Typography> : null}
             {description ? (
               <Typography variant="body-sm" color="secondary" className="mt-0.5">
                 {description}

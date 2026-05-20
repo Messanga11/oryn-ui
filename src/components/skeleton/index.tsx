@@ -3,8 +3,8 @@ import { Animated } from 'react-native';
 import { Box } from '../../primitives/box';
 
 export interface SkeletonProps {
-  width?: number | string;
-  height?: number | string;
+  width?: number;
+  height?: number;
   borderRadius?: number;
   className?: string;
 }
@@ -14,12 +14,7 @@ export interface SkeletonProps {
  * Use instead of spinners for content areas.
  * Anti-pattern: never show a spinner alone for content loading.
  */
-export function Skeleton({
-  width,
-  height = 16,
-  borderRadius = 8,
-  className,
-}: SkeletonProps) {
+export function Skeleton({ width, height = 16, borderRadius = 8, className }: SkeletonProps) {
   const opacity = useRef(new Animated.Value(0.3)).current;
 
   useEffect(() => {
@@ -64,7 +59,7 @@ export function SkeletonListItem() {
       <Skeleton width={40} height={40} borderRadius={20} />
       <Box className="flex-1 gap-2">
         <Skeleton height={14} borderRadius={7} />
-        <Skeleton height={12} width="60%" borderRadius={6} />
+        <Skeleton height={12} borderRadius={6} className="w-3/5" />
       </Box>
     </Box>
   );
@@ -75,8 +70,8 @@ export function SkeletonCard() {
   return (
     <Box className="bg-bg-surface rounded-lg border border-bg-border p-4 gap-3">
       <Skeleton height={16} borderRadius={8} />
-      <Skeleton height={12} width="80%" borderRadius={6} />
-      <Skeleton height={12} width="60%" borderRadius={6} />
+      <Skeleton height={12} borderRadius={6} className="w-4/5" />
+      <Skeleton height={12} borderRadius={6} className="w-3/5" />
     </Box>
   );
 }

@@ -13,10 +13,7 @@ export interface CardProps {
  * Becomes a Pressable when onPress is provided.
  */
 export function Card({ children, onPress, className }: CardProps) {
-  const containerClass = [
-    'bg-bg-surface rounded-lg border border-bg-border p-4',
-    className,
-  ]
+  const containerClass = ['bg-bg-surface rounded-lg border border-bg-border p-4', className]
     .filter(Boolean)
     .join(' ');
 

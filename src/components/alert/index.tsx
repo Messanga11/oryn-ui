@@ -29,11 +29,7 @@ export interface AlertProps {
 export function Alert({ variant = 'info', title, children, icon, className }: AlertProps) {
   return (
     <Box
-      className={[
-        'flex-row rounded-lg border p-3 gap-2.5',
-        CONTAINER_CLASS[variant],
-        className,
-      ]
+      className={['flex-row rounded-lg border p-3 gap-2.5', CONTAINER_CLASS[variant], className]
         .filter(Boolean)
         .join(' ')}
     >

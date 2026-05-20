@@ -5,6 +5,7 @@ import type { FieldRendererComponentProps } from '../core/types';
  * Text / email field renderer using @oryn/ui Input primitive.
  */
 export function TextRenderer({ field, config }: FieldRendererComponentProps) {
+  if (config.type === 'component') return null;
   const error = field.state.meta.errors[0] as string | undefined;
 
   return (

@@ -1,7 +1,7 @@
-import { Box } from '../../primitives/box';
-import { Typography } from '../../primitives/typography';
-import { Image } from '../../primitives/image';
 import { SectionLayout } from '../../layout/section-layout';
+import { Box } from '../../primitives/box';
+import { Image } from '../../primitives/image';
+import { Typography } from '../../primitives/typography';
 
 export interface ContentSectionProps {
   title?: string;
