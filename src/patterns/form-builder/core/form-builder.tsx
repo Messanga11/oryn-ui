@@ -103,7 +103,7 @@ export function FormBuilder<TFormData, TValidators = unknown>({
 
   const form = useForm({
     defaultValues: defaultValues as TFormData,
-    onSubmit: async ({ value }) => {
+    onSubmit: async ({ value }: { value: TFormData }) => {
       try {
         const raw = value as Record<string, unknown>;
         const { cleanedData, files, fileOrders } = extractFiles(raw, fileFieldNames);
@@ -183,7 +183,7 @@ export function FormBuilder<TFormData, TValidators = unknown>({
         name={fieldConfig.name as never}
         validators={fieldValidator as never}
       >
-        {(field) =>
+        {(field: unknown) =>
           Renderer ? (
             style.fieldWrapperClassName ? (
               <div className={style.fieldWrapperClassName} style={colStyle}>

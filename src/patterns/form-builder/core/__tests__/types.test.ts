@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 describe('Form Builder Types', () => {
   it('exports FieldType as a union of all supported field types', async () => {
     // FieldType should accept all built-in types
-    const validTypes: import('../../index').FieldType[] = [
+    const validTypes: import('../types').FieldType[] = [
       'text',
       'email',
       'password',
@@ -22,7 +22,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports BaseFieldConfig with required name, type, and label', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const config: mod.BaseFieldConfig = {
       name: 'email',
@@ -36,7 +36,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports BaseFieldConfig with optional placeholder, helperText, disabled, optional', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const config: mod.BaseFieldConfig = {
       name: 'email',
@@ -55,7 +55,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports TextFieldConfig with leftIcon and rightIcon', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const config: mod.TextFieldConfig = {
       name: 'username',
@@ -70,7 +70,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports SelectFieldConfig with options array', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const config: mod.SelectFieldConfig = {
       name: 'country',
@@ -87,7 +87,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports AsyncSelectFieldConfig with fetchOptions', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const fetchOptions = async (_search: string) => [{ label: 'Result', value: '1' }];
 
@@ -106,7 +106,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports FileFieldConfig with accept, maxFiles, maxSizeBytes, multiple', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const config: mod.FileFieldConfig = {
       name: 'images',
@@ -125,7 +125,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports ComponentFieldConfig with component and no label required', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const config: mod.ComponentFieldConfig = {
       type: 'component',
@@ -138,7 +138,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports NumberFieldConfig with leftIcon and rightIcon', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const config: mod.NumberFieldConfig = {
       name: 'quantity',
@@ -151,7 +151,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports SelectOption type with label and value', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const option: mod.SelectOption = {
       label: 'France',
@@ -163,7 +163,7 @@ describe('Form Builder Types', () => {
   });
 
   it('FieldConfig is a discriminated union of all field configs', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     // Should accept any of the field config types
     const configs: mod.FieldConfig[] = [
@@ -194,7 +194,7 @@ describe('Form Builder Types', () => {
   });
 
   it('exports getFieldError utility', async () => {
-    const { getFieldError } = await import('../../index');
+    const { getFieldError } = await import('../types');
 
     // Returns first error from errors array
     expect(

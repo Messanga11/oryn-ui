@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 describe('createValidators', () => {
   it('creates validators with default messages', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
 
@@ -18,7 +18,7 @@ describe('createValidators', () => {
   });
 
   it('creates validators with custom messages', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators({
       required: 'Ce champ est requis',
@@ -30,7 +30,7 @@ describe('createValidators', () => {
   });
 
   it('required() rejects empty strings', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.required();
@@ -40,7 +40,7 @@ describe('createValidators', () => {
   });
 
   it('required() accepts custom message', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.required('Custom required');
@@ -53,7 +53,7 @@ describe('createValidators', () => {
   });
 
   it('email() validates email format', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.email();
@@ -63,7 +63,7 @@ describe('createValidators', () => {
   });
 
   it('min() validates minimum string length', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.min(3);
@@ -73,7 +73,7 @@ describe('createValidators', () => {
   });
 
   it('max() validates maximum string length', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.max(5);
@@ -83,7 +83,7 @@ describe('createValidators', () => {
   });
 
   it('number() validates number type', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.number();
@@ -93,7 +93,7 @@ describe('createValidators', () => {
   });
 
   it('numberMin() validates minimum number value', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.numberMin(10);
@@ -103,7 +103,7 @@ describe('createValidators', () => {
   });
 
   it('numberMax() validates maximum number value', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.numberMax(100);
@@ -113,7 +113,7 @@ describe('createValidators', () => {
   });
 
   it('boolean() validates boolean type', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.boolean();
@@ -124,7 +124,7 @@ describe('createValidators', () => {
   });
 
   it('string() creates a basic string schema', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.string();
@@ -134,7 +134,7 @@ describe('createValidators', () => {
   });
 
   it('confirmPassword() validates non-empty string', async () => {
-    const { createValidators } = await import('../../index');
+    const { createValidators } = await import('../index');
 
     const v = createValidators();
     const schema = v.confirmPassword('secret123');

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 describe('Table Page Types', () => {
   it('exports TablePageAction type with label, onClick, and optional variant', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const action: mod.TablePageAction<{ id: string }> = {
       label: 'Edit',
@@ -15,7 +15,7 @@ describe('Table Page Types', () => {
   });
 
   it('exports Breadcrumb type with label and optional href', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const crumb: mod.Breadcrumb = {
       label: 'Home',
@@ -27,7 +27,7 @@ describe('Table Page Types', () => {
   });
 
   it('exports PaginationMeta type', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const meta: mod.PaginationMeta = {
       page: 1,
@@ -41,7 +41,7 @@ describe('Table Page Types', () => {
   });
 
   it('exports UseTablePageOptions type', async () => {
-    const mod = await import('../../index');
+    const mod = await import('../types');
 
     const options: mod.UseTablePageOptions<{ id: string }> = {
       onDelete: async (_row) => {},
@@ -54,7 +54,7 @@ describe('Table Page Types', () => {
 
   it('exports UseTablePageReturn type', async () => {
     // Just verify the type is accessible (compile-time check)
-    const _check: import('../../index').UseTablePageReturn<{ id: string }> = {
+    const _check: import('../types').UseTablePageReturn<{ id: string }> = {
       sheetOpen: false,
       editingRow: null,
       isEditMode: false,
@@ -74,7 +74,7 @@ describe('Table Page Types', () => {
   });
 
   it('exports unwrapResponse utility for Orval-style responses', async () => {
-    const { unwrapResponse } = await import('../../index');
+    const { unwrapResponse } = await import('../types');
 
     const orvalResponse = {
       data: {
@@ -94,7 +94,7 @@ describe('Table Page Types', () => {
   });
 
   it('unwrapResponse returns empty defaults for missing data', async () => {
-    const { unwrapResponse } = await import('../../index');
+    const { unwrapResponse } = await import('../types');
 
     const result = unwrapResponse(undefined);
     expect(result.data).toEqual([]);
@@ -102,7 +102,7 @@ describe('Table Page Types', () => {
   });
 
   it('unwrapResponse handles flat data array', async () => {
-    const { unwrapResponse } = await import('../../index');
+    const { unwrapResponse } = await import('../types');
 
     const result = unwrapResponse({ data: [{ id: '1' }] });
     expect(result.data).toEqual([{ id: '1' }]);
