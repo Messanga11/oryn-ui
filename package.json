@@ -20,25 +20,28 @@
     "lint": "biome check .",
     "test": "vitest run"
   },
-  "peerDependencies": {
-    "react": ">=19.0.0",
-    "react-native": ">=0.81.0",
-    "nativewind": ">=4.1.0",
-    "@gluestack-ui/themed": ">=2.0.0-alpha",
-    "react-native-gesture-handler": ">=2.0.0",
-    "react-native-safe-area-context": ">=4.0.0"
-  },
   "dependencies": {
     "@tanstack/react-form": "^0.34.0",
     "@tanstack/react-query": "^5.0.0",
     "@tanstack/react-table": "^8.0.0",
-    "zod": "^3.22.0",
-    "expo-image": "^2.0.0",
-    "expo-linking": "^7.0.0"
+    "zod": "^3.22.0"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-native": ">=0.81.0",
+    "nativewind": ">=4.1.0",
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-safe-area-context": ">=5.0.0",
+    "expo-image": ">=2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "expo-image": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@repo/config": "workspace:*",
-    "@types/react": "^19.0.0",
+    "@types/react": "~19.1.0",
     "typescript": "^5.3.0",
     "vitest": "^1.0.0"
   }
