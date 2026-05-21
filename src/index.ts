@@ -45,6 +45,12 @@ export type { MarqueeProps } from './primitives/marquee';
 export { useScrollTrigger } from './hooks/use-scroll-trigger';
 export type { ScrollTriggerConfig } from './hooks/use-scroll-trigger';
 
+export { useReducedMotion } from './hooks/use-reduced-motion';
+
+// ─── Web primitives ────────────────────────────────────────────────────────
+export { WebLink } from './primitives/web-link';
+export type { WebLinkProps } from './primitives/web-link';
+
 // ─── Layout ────────────────────────────────────────────────────────────────
 export { Grid } from './layout/grid';
 export type { GridProps } from './layout/grid';
