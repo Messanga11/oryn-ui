@@ -4,7 +4,8 @@
 
 export type MatchMediaQuery =
   | '(prefers-reduced-motion: reduce)'
-  | '(pointer: coarse)';
+  | '(pointer: coarse)'
+  | '(hover: none)';
 
 type MatchMediaOptions = {
   [K in MatchMediaQuery]?: boolean;
@@ -19,6 +20,9 @@ export function mockMatchMedia(options: MatchMediaOptions = {}): () => void {
     }
     if (query === '(pointer: coarse)') {
       return options['(pointer: coarse)'] ?? false;
+    }
+    if (query === '(hover: none)') {
+      return options['(hover: none)'] ?? false;
     }
     return false;
   };
@@ -74,5 +78,6 @@ export function setupMatchMedia(): () => void {
   return mockMatchMedia({
     '(prefers-reduced-motion: reduce)': false,
     '(pointer: coarse)': false,
+    '(hover: none)': false,
   });
 }

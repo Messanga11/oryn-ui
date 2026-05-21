@@ -19,7 +19,7 @@ export interface SpinnerProps {
 
 export function Spinner({
   size = 'md',
-  color = '#3B5BDB',
+  color = '#f0f0f0',
   centered = false,
   className,
 }: SpinnerProps) {

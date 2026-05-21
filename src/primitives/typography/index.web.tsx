@@ -10,8 +10,10 @@ export type FontWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
  * CRIT-11: Exact Tailwind/NativeWind classes per variant.
  */
 const VARIANT_CLASS: Record<TypographyVariant, string> = {
-  display: 'text-[clamp(80px,10vw,140px)] leading-[0.95] tracking-[-0.02em] font-display font-bold text-text-primary',
-  h1: 'text-[clamp(56px,7vw,100px)] leading-[1.0] tracking-[-0.02em] font-display font-bold text-text-primary',
+  // DESIGN-01: clamp(64px, 9vw, 140px) — 320px→64px, 1440px→130px, 1920px→140px
+  display: 'text-[clamp(64px,9vw,140px)] leading-[0.95] tracking-[-0.02em] font-display font-bold text-text-primary',
+  // DESIGN-02: h1 lineHeight ≈ 1.0
+  h1: 'text-[clamp(48px,6vw,100px)] leading-[1.0] tracking-[-0.02em] font-display font-bold text-text-primary',
   h2: 'text-[clamp(40px,5vw,72px)] leading-[1.05] tracking-[-0.02em] font-display font-bold text-text-primary',
   h3: 'text-[clamp(28px,3.5vw,48px)] leading-[1.1] tracking-[-0.015em] font-display font-bold text-text-primary',
   h4: 'font-sans text-base font-semibold leading-snug text-text-primary',

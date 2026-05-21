@@ -18,7 +18,7 @@ export function Switch({ value, onChange, label, disabled, className }: SwitchPr
         value={value}
         onValueChange={onChange}
         disabled={disabled}
-        trackColor={{ false: '#3A4055', true: '#3B5BDB' }}
+        trackColor={{ false: '#333333', true: '#DA382E' }}
         thumbColor="#FFFFFF"
         ios_backgroundColor="#3A4055"
       />

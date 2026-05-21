@@ -16,13 +16,13 @@ export type BadgeTone = 'brand' | 'accent' | 'success' | 'warning' | 'error' | '
 
 /** Dot color per tone */
 const DOT_COLOR: Record<BadgeTone, string> = {
-  brand: '#3B5BDB',
-  accent: '#9C36B5',
+  brand: '#DA382E',
+  accent: '#f0f0f0',
   success: '#40C057',
   warning: '#FAB005',
   error: '#FA5252',
-  info: '#339AF0',
-  pending: '#7048E8',
+  info: '#888888',
+  pending: '#888888',
 };
 
 const BADGE_CLASS: Record<Exclude<BadgeVariant, 'dot'>, string> = {
@@ -60,7 +60,7 @@ export interface BadgeProps {
  * Badge — status indicator and standalone dot indicator.
  *
  * DESIGN-05: variant="dot" renders an 8×8 circle, borderRadius 9999, no shadow/glow.
- * tone="brand" → #3B5BDB (admin), tone="accent" → #9C36B5 (driver).
+ * tone="brand" → accent #DA382E, tone="accent" → #f0f0f0 (muted).
  */
 export function Badge({
   variant = 'default',

@@ -31,7 +31,7 @@ export const shadows: Record<string, ShadowToken> = {
     elevation: 10,
   },
   glow: {
-    shadowColor: '#3B5BDB',
+    shadowColor: '#DA382E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 12,

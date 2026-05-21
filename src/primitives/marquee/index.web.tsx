@@ -21,19 +21,18 @@ function injectKeyframes(): void {
 
 export function Marquee({
   children,
-  speed = 60,
-  gap = 48,
+  speed = 50,
+  gap = 64,
   direction = 'left',
   pauseOnHover = true,
 }: MarqueeProps): React.JSX.Element | null {
-  if (children == null) return null;
-  if (Array.isArray(children) && children.length === 0) return null;
-
+  // CRIT-24: hooks must be called unconditionally (Rules of Hooks)
   const childRef = useRef<HTMLDivElement>(null);
   const [reps, setReps] = useState(4);
   const [duration, setDuration] = useState(4);
   const [paused, setPaused] = useState(false);
 
+  // CRIT-25: prefers-reduced-motion — checked inside effect and at render
   const prefersReduced =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -46,6 +45,7 @@ export function Marquee({
       const childWidth = childRef.current?.getBoundingClientRect().width ?? 0;
       if (childWidth === 0) return;
       const vw = window.innerWidth;
+      // CRIT-24: dynamic duplication — Math.ceil((viewport * 2) / childWidth), not × 2 hardcoded
       const repsPerGroup = Math.max(1, Math.ceil(vw / childWidth) + 1);
       const totalReps = repsPerGroup * 2;
       setReps(totalReps);
@@ -59,6 +59,11 @@ export function Marquee({
     return () => observer.disconnect();
   }, [speed, gap, prefersReduced]);
 
+  // CRIT-26: children null/[] → return null (after hooks)
+  if (children == null) return null;
+  if (Array.isArray(children) && children.length === 0) return null;
+
+  // CRIT-25: reduced motion → static, readable, no animation
   if (prefersReduced) {
     return <div style={{ overflow: 'visible', whiteSpace: 'nowrap' }}>{children}</div>;
   }
@@ -71,6 +76,7 @@ export function Marquee({
     animationIterationCount: 'infinite',
     animationPlayState: paused ? 'paused' : 'running',
     display: 'flex',
+    whiteSpace: 'nowrap',
     width: 'max-content',
   };
 

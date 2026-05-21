@@ -3,6 +3,7 @@
   "compilerOptions": {
     "lib": ["ES2020", "DOM"],
     "exactOptionalPropertyTypes": false,
+    "ignoreDeprecations": "6.0",
     "rootDir": "./src",
     "outDir": "./dist"
   },

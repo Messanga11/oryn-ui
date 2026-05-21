@@ -22,9 +22,11 @@ export function CustomCursor({
     }
 
     const motionMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+    // CRIT-12: check BOTH pointer:coarse AND hover:none (touch device detection)
     const pointerMQ = window.matchMedia('(pointer: coarse)');
+    const hoverMQ = window.matchMedia('(hover: none)');
 
-    if (motionMQ.matches || pointerMQ.matches) return;
+    if (motionMQ.matches || pointerMQ.matches || hoverMQ.matches) return;
 
     const el = document.createElement('div');
     cursorRef.current = el;

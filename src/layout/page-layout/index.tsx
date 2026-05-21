@@ -30,7 +30,7 @@ export interface PageLayoutProps {
  * PageLayout — root layout for every screen.
  * Handles safe area, scroll, and centering.
  *
- * DESIGN-01: backgroundColor="bg.base" applies #0C0E16 via SafeAreaView +
+ * DESIGN-01: backgroundColor="bg.base" applies #0a0a0a via SafeAreaView +
  * propagates to insets so no flash-white on dark devices.
  */
 export function PageLayout({
