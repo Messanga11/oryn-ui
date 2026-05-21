@@ -12,7 +12,9 @@
     "./components/*": "./src/components/*/index.tsx",
     "./patterns/*": "./src/patterns/*/index.tsx",
     "./blocks/*": "./src/blocks/*/index.tsx",
+    "./providers/smooth-scroll": "./src/providers/smooth-scroll/index.tsx",
     "./providers/*": "./src/providers/*.tsx",
+    "./hooks/use-scroll-trigger": "./src/hooks/use-scroll-trigger/index.ts",
     "./tokens": "./src/tokens/index.ts"
   },
   "scripts": {
@@ -27,24 +29,42 @@
     "zod": "^3.22.0"
   },
   "peerDependencies": {
+    "expo-image": ">=2.0.0",
+    "framer-motion": "^11.0.0",
+    "gsap": "^3.12.0",
+    "lenis": "^1.1.0",
+    "nativewind": ">=4.1.0",
     "react": ">=19.0.0",
     "react-native": ">=0.81.0",
-    "nativewind": ">=4.1.0",
     "react-native-gesture-handler": ">=2.0.0",
-    "react-native-safe-area-context": ">=5.0.0",
-    "expo-image": ">=2.0.0"
+    "react-native-safe-area-context": ">=5.0.0"
   },
   "peerDependenciesMeta": {
     "expo-image": {
+      "optional": true
+    },
+    "framer-motion": {
+      "optional": true
+    },
+    "gsap": {
+      "optional": true
+    },
+    "lenis": {
       "optional": true
     }
   },
   "devDependencies": {
     "@repo/config": "workspace:*",
     "@shopify/flash-list": "^1.7.0",
+    "@testing-library/react": "^16.0.0",
     "@types/react": "~19.1.0",
     "expo-image": "^2.0.0",
-    "typescript": "^5.3.0",
+    "framer-motion": "^11.0.0",
+    "gsap": "^3.12.0",
+    "jsdom": "^29.1.1",
+    "lenis": "^1.1.0",
+    "react-native-reanimated": "^4.3.1",
+    "typescript": "^6.0.3",
     "vitest": "^1.0.0"
   }
 }

@@ -1,9 +1,14 @@
 /**
- * Typography tokens — Inter font, tabular nums for amounts
+ * Typography tokens — Clash Display (display/h1-h3), Inter (body/labels), JetBrains Mono (code)
+ * Sprint 02: Updated for portfolio editorial aesthetic (Awwwards level).
+ * FONT-01: Clash Display weight 700 only.
+ * FONT-02: Inter weights 400/500 only.
+ * FONT-03: JetBrains Mono weight 400 only.
  */
 export const fontFamily = {
+  display: 'Clash Display',
   sans: 'Inter',
-  mono: 'JetBrainsMono',
+  mono: 'JetBrains Mono',
 } as const;
 
 export const fontSize = {
@@ -16,6 +21,10 @@ export const fontSize = {
   '2xl': 28,
   '3xl': 32,
   '4xl': 40,
+  '5xl': 64,
+  '6xl': 80,
+  '7xl': 100,
+  '8xl': 140,
 } as const;
 
 export const fontWeight = {
@@ -42,111 +51,126 @@ export const letterSpacing = {
 } as const;
 
 /**
- * Typography variant → style map (absolute pixel values for RN compatibility).
- * CRIT-33/DESIGN-02/03 compliance: fontFamily, lineHeight, letterSpacing, color explicit.
- * tone="muted" in Typography component maps to text.secondary (#8B93A7) — WCAG AA pass.
+ * Typography variant → style map.
+ * display/h1-h3: Clash Display, editorial scale, string letterSpacing (em units).
+ * body/labels: Inter 400/500, numeric letterSpacing (RN compatible).
+ * mono: JetBrains Mono, code contexts.
+ * label: uppercase 0.1em tracking, CRIT-05.
+ * CRIT-01: display.letterSpacing === '-0.02em'
+ * CRIT-02: all colors === '#f0f0f0' (no '#F1F3F9')
+ * CRIT-03: display.fontFamily === 'Clash Display'
+ * CRIT-04: mono variant added
+ * CRIT-05: label recalibrated
  */
 export const typographyVariants = {
   display: {
-    fontFamily: 'Inter_700Bold',
-    fontSize: 32,
-    lineHeight: 38,
-    letterSpacing: -0.5,
-    color: '#F1F3F9',
-    fontVariantNumeric: 'tabular-nums',
+    fontFamily: 'Clash Display',
+    fontSize: 64,
+    lineHeight: 61,
+    letterSpacing: '-0.02em',
+    color: '#f0f0f0',
   },
   h1: {
-    fontFamily: 'Inter_600SemiBold',
-    fontSize: 24,
-    lineHeight: 32,
-    letterSpacing: -0.4,
-    color: '#F1F3F9',
+    fontFamily: 'Clash Display',
+    fontSize: 48,
+    lineHeight: 48,
+    letterSpacing: '-0.02em',
+    color: '#f0f0f0',
   },
   h2: {
-    fontFamily: 'Inter_600SemiBold',
-    fontSize: 20,
-    lineHeight: 28,
-    letterSpacing: -0.3,
-    color: '#F1F3F9',
+    fontFamily: 'Clash Display',
+    fontSize: 36,
+    lineHeight: 38,
+    letterSpacing: '-0.02em',
+    color: '#f0f0f0',
   },
   h3: {
-    fontFamily: 'Inter_500Medium',
-    fontSize: 17,
-    lineHeight: 24,
-    letterSpacing: -0.2,
-    color: '#F1F3F9',
+    fontFamily: 'Clash Display',
+    fontSize: 28,
+    lineHeight: 31,
+    letterSpacing: '-0.015em',
+    color: '#f0f0f0',
   },
   h4: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'Inter',
     fontSize: 15,
     lineHeight: 22,
     letterSpacing: -0.1,
-    color: '#F1F3F9',
+    color: '#f0f0f0',
   },
   h5: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'Inter',
     fontSize: 13,
     lineHeight: 18,
     letterSpacing: 0,
-    color: '#F1F3F9',
+    color: '#f0f0f0',
   },
   h6: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'Inter',
     fontSize: 11,
     lineHeight: 16,
     letterSpacing: 0,
-    color: '#F1F3F9',
+    color: '#f0f0f0',
   },
   'body-lg': {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter',
     fontSize: 17,
     lineHeight: 26,
     letterSpacing: -0.1,
-    color: '#F1F3F9',
+    color: '#f0f0f0',
   },
   body: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter',
     fontSize: 15,
     lineHeight: 22,
     letterSpacing: -0.1,
-    color: '#F1F3F9',
+    color: '#f0f0f0',
   },
   'body-sm': {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter',
     fontSize: 13,
     lineHeight: 20,
     letterSpacing: 0,
-    color: '#F1F3F9',
+    color: '#f0f0f0',
   },
   caption: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'Inter',
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0,
-    color: '#8B93A7',
+    color: '#888888',
   },
   label: {
-    fontFamily: 'Inter_500Medium',
-    fontSize: 13,
-    lineHeight: 18,
-    letterSpacing: 0,
-    color: '#F1F3F9',
+    fontFamily: 'Inter',
+    fontSize: 12,
+    lineHeight: 17,
+    letterSpacing: '0.1em',
+    fontWeight: '500',
+    textTransform: 'uppercase' as const,
+    color: '#f0f0f0',
   },
   overline: {
-    fontFamily: 'Inter_600SemiBold',
+    fontFamily: 'Inter',
     fontSize: 11,
     lineHeight: 14,
-    letterSpacing: 2,
-    color: '#8B93A7',
+    letterSpacing: '0.1em',
+    fontWeight: '600',
     textTransform: 'uppercase' as const,
+    color: '#888888',
   },
   numeric: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'Inter',
     fontSize: 15,
     lineHeight: 22,
     letterSpacing: 0,
-    color: '#F1F3F9',
+    color: '#f0f0f0',
     fontVariantNumeric: 'tabular-nums',
+  },
+  mono: {
+    fontFamily: 'JetBrains Mono',
+    fontSize: 14,
+    lineHeight: 20,
+    letterSpacing: 0,
   },
 } as const;
 

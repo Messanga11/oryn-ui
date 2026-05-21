@@ -2,16 +2,14 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    environment: 'node',
+    environment: 'jsdom',
     globals: false,
-    include: ['src/**/__tests__/**/*.{test,spec}.ts'],
-    exclude: [
-      'node_modules',
-      'dist',
-      // .tsx tests require @testing-library/react — added in sprint 02
-    ],
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    exclude: ['node_modules', 'dist'],
   },
   esbuild: {
     target: 'es2020',
+    jsx: 'automatic',
+    jsxImportSource: 'react',
   },
 });

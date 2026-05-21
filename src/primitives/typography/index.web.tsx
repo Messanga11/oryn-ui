@@ -1,19 +1,19 @@
 import React from 'react';
-import { Text } from 'react-native';
-import type { TextProps } from 'react-native';
 import type { TypographyVariant } from '../../tokens/typography';
 
+export type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify';
+export type TextColor = 'primary' | 'secondary' | 'muted' | 'error' | 'success' | 'warning' | 'info';
+export type TextTone = 'default' | 'muted' | 'secondary' | 'error' | 'success' | 'warning' | 'info';
+export type FontWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
+
 /**
- * CRIT-13: Native variant classes.
- * display → ClashDisplay_700Bold (via font-display Tailwind alias), 64px
- * h1 → 48px, h2 → 36px, h3 → 28px
- * mono → JetBrainsMono (via font-mono), 14px
+ * CRIT-11: Exact Tailwind/NativeWind classes per variant.
  */
 const VARIANT_CLASS: Record<TypographyVariant, string> = {
-  display: 'font-display text-[64px] font-bold leading-none tracking-tight text-text-primary',
-  h1: 'font-display text-[48px] font-bold leading-tight tracking-tight text-text-primary',
-  h2: 'font-display text-[36px] font-bold leading-tight tracking-tight text-text-primary',
-  h3: 'font-display text-[28px] font-bold leading-snug text-text-primary',
+  display: 'text-[clamp(80px,10vw,140px)] leading-[0.95] tracking-[-0.02em] font-display font-bold text-text-primary',
+  h1: 'text-[clamp(56px,7vw,100px)] leading-[1.0] tracking-[-0.02em] font-display font-bold text-text-primary',
+  h2: 'text-[clamp(40px,5vw,72px)] leading-[1.05] tracking-[-0.02em] font-display font-bold text-text-primary',
+  h3: 'text-[clamp(28px,3.5vw,48px)] leading-[1.1] tracking-[-0.015em] font-display font-bold text-text-primary',
   h4: 'font-sans text-base font-semibold leading-snug text-text-primary',
   h5: 'font-sans text-sm font-semibold text-text-primary',
   h6: 'font-sans text-xs font-semibold text-text-primary',
@@ -21,16 +21,33 @@ const VARIANT_CLASS: Record<TypographyVariant, string> = {
   body: 'font-sans text-base font-normal leading-relaxed text-text-primary',
   'body-sm': 'font-sans text-sm font-normal leading-relaxed text-text-primary',
   caption: 'font-sans text-xs font-normal text-text-secondary',
-  label: 'font-sans text-[12px] font-medium uppercase text-text-primary',
-  overline: 'font-mono text-[11px] font-semibold uppercase text-text-secondary',
-  numeric: 'font-sans text-base font-medium text-text-primary',
-  mono: 'font-mono text-[14px] font-normal text-text-primary',
+  label: 'text-[12px] leading-[1.4] tracking-[0.1em] uppercase font-sans font-medium text-text-primary',
+  overline: 'font-mono text-[12px] font-semibold tracking-[0.1em] uppercase text-text-secondary',
+  numeric: 'font-sans text-base font-medium text-text-primary tabular-nums',
+  mono: 'text-[14px] leading-[1.4] tracking-[0] font-mono text-text-primary',
 };
 
-export type TextAlign = 'auto' | 'left' | 'right' | 'center' | 'justify';
-export type TextColor = 'primary' | 'secondary' | 'muted' | 'error' | 'success' | 'warning' | 'info';
-export type TextTone = 'default' | 'muted' | 'secondary' | 'error' | 'success' | 'warning' | 'info';
-export type FontWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
+/**
+ * CRIT-12: HTML element per variant.
+ * display → h1, h1-h6 → tags, mono → code, label → span, body* → p, caption → span
+ */
+const VARIANT_ELEMENT: Record<TypographyVariant, keyof React.JSX.IntrinsicElements> = {
+  display: 'h1',
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  'body-lg': 'p',
+  body: 'p',
+  'body-sm': 'p',
+  caption: 'span',
+  label: 'span',
+  overline: 'span',
+  numeric: 'span',
+  mono: 'code',
+};
 
 const COLOR_CLASS: Record<TextColor, string> = {
   primary: 'text-text-primary',
@@ -68,21 +85,24 @@ const ALIGN_CLASS: Record<TextAlign, string> = {
   justify: 'text-justify',
 };
 
-export interface TypographyProps extends TextProps {
+export interface TypographyProps {
   variant?: TypographyVariant;
-  /** as prop accepted but ignored on native (always renders Text) */
-  as?: string;
+  /** CRIT-14: override the rendered HTML element */
+  as?: keyof React.JSX.IntrinsicElements;
   color?: TextColor;
   tone?: TextTone;
   weight?: FontWeight;
   align?: TextAlign;
   className?: string;
+  style?: React.CSSProperties;
   children?: React.ReactNode;
+  id?: string;
+  [key: string]: unknown;
 }
 
 export function Typography({
   variant = 'body',
-  as: _as,
+  as,
   color,
   tone,
   weight,
@@ -100,9 +120,10 @@ export function Typography({
     .filter(Boolean)
     .join(' ');
 
-  return (
-    <Text className={composedClass} style={style} {...props}>
-      {children}
-    </Text>
+  const element = as ?? VARIANT_ELEMENT[variant] ?? 'span';
+  return React.createElement(
+    element,
+    { className: composedClass, style, ...(props as Record<string, unknown>) },
+    children,
   );
 }

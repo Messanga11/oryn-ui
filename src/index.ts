@@ -32,6 +32,19 @@ export type { SpacerProps } from './primitives/spacer';
 export { Divider } from './primitives/divider';
 export type { DividerProps } from './primitives/divider';
 
+export { CustomCursor } from './primitives/custom-cursor';
+export type { CustomCursorProps } from './primitives/custom-cursor';
+
+export { Preloader } from './primitives/preloader';
+export type { PreloaderProps } from './primitives/preloader';
+
+export { Marquee } from './primitives/marquee';
+export type { MarqueeProps } from './primitives/marquee';
+
+// ─── Hooks ─────────────────────────────────────────────────────────────────
+export { useScrollTrigger } from './hooks/use-scroll-trigger';
+export type { ScrollTriggerConfig } from './hooks/use-scroll-trigger';
+
 // ─── Layout ────────────────────────────────────────────────────────────────
 export { Grid } from './layout/grid';
 export type { GridProps } from './layout/grid';
@@ -153,6 +166,9 @@ export type {
 // ─── Providers ─────────────────────────────────────────────────────────────
 export { UIProvider } from './providers/UIProvider';
 export type { UIProviderProps } from './providers/UIProvider';
+
+export { SmoothScrollProvider, useLenis } from './providers/smooth-scroll';
+export type { SmoothScrollProviderProps, LenisOptions } from './providers/smooth-scroll';
 
 // ─── Blocks ────────────────────────────────────────────────────────────────
 export { BlockRenderer, createBlockRenderer } from './blocks/block-renderer';
