@@ -194,3 +194,7 @@ export type { FeatureSectionProps, FeatureItem } from './blocks/feature-section'
 
 export { CustomBlock } from './blocks/custom-block';
 export type { VexBlock } from './blocks/types';
+
+// ─── Utils ─────────────────────────────────────────────────────────────────
+export { useRNWViewRef, useRNWTextRef } from './utils/rnw-ref';
+export type { RNWViewRef, RNWTextRef } from './utils/rnw-ref';

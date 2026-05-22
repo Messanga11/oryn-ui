@@ -8,7 +8,6 @@ import { useForm } from '@tanstack/react-form';
 import type { ReactNode, RefObject } from 'react';
 import { useImperativeHandle, useMemo } from 'react';
 import type { z } from 'zod';
-import { Column } from '../../layout/column';
 import { Row } from '../../layout/row';
 import { Box } from '../../primitives/box';
 import { useFieldRenderers } from './core/context';
@@ -16,6 +15,7 @@ import { useFormBuilderStyle } from './core/style-context';
 import type { FormBuilderStyle } from './core/style-context';
 import type { FieldConfig, FieldType } from './core/types';
 import { extractFiles } from './file-handling';
+import { FormRoot } from './form-root';
 
 export interface FormFieldConfig<TFormData, Name extends keyof TFormData = keyof TFormData> {
   name: Name;
@@ -192,8 +192,13 @@ export function FormBuilder<TFormData, TValidators = unknown>({
     );
   }
 
+  function handleSubmit() {
+    void form.validateAllFields('submit');
+    void form.handleSubmit();
+  }
+
   return (
-    <Column gap={16} className={className}>
+    <FormRoot onSubmit={handleSubmit} className={className}>
       {fields.map((fieldOrRow) => {
         if (Array.isArray(fieldOrRow)) {
           const rowKey = fieldOrRow.map((f) => String(f.name)).join('-');
@@ -205,8 +210,7 @@ export function FormBuilder<TFormData, TValidators = unknown>({
         }
         return renderField(fieldOrRow);
       })}
-      {/* Children typically contain the submit Button */}
       {children}
-    </Column>
+    </FormRoot>
   );
 }

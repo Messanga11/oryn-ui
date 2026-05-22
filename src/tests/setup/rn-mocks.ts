@@ -3,11 +3,18 @@
  * These packages use native modules / Flow syntax incompatible with Rollup.
  * Import this file via vitest setupFiles.
  */
-import { expect, vi } from 'vitest';
+import { afterEach, expect, vi } from 'vitest';
+import { cleanup } from '@testing-library/react';
 import * as jestDomMatchers from '@testing-library/jest-dom/matchers';
 
 // Extend vitest expect with jest-dom matchers (toBeInTheDocument, toHaveTextContent, etc.)
 expect.extend(jestDomMatchers);
+
+// With globals:false, @testing-library/react's auto-cleanup check (typeof afterEach) fails.
+// Register cleanup explicitly so DOM is wiped between tests.
+afterEach(() => {
+  cleanup();
+});
 
 // react-native-reanimated: mock the entire module
 vi.mock('react-native-reanimated', () => ({
