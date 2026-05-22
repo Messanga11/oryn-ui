@@ -26,6 +26,14 @@ export interface PressableProps extends React.ButtonHTMLAttributes<HTMLButtonEle
   onHoverOut?: () => void;
   accessibilityRole?: string;
   accessibilityLabel?: string;
+  /** Maps RN accessibilityState to aria-disabled/aria-busy/aria-checked/aria-selected */
+  accessibilityState?: {
+    disabled?: boolean;
+    busy?: boolean;
+    checked?: boolean | 'mixed';
+    selected?: boolean;
+    expanded?: boolean;
+  };
   /** Touch expansion — ignored on web */
   hitSlop?: number;
   children?: React.ReactNode;
@@ -41,6 +49,7 @@ export const Pressable = React.forwardRef<HTMLButtonElement, PressableProps>(
       onHoverOut,
       accessibilityRole,
       accessibilityLabel,
+      accessibilityState,
       hitSlop: _hitSlop,
       disabled,
       children,
@@ -73,7 +82,12 @@ export const Pressable = React.forwardRef<HTMLButtonElement, PressableProps>(
         onMouseLeave={onHoverOut}
         role={htmlRole}
         aria-label={ariaLabel}
-        disabled={disabled}
+        disabled={disabled ?? accessibilityState?.disabled}
+        aria-disabled={accessibilityState?.disabled}
+        aria-busy={accessibilityState?.busy}
+        aria-checked={accessibilityState?.checked}
+        aria-selected={accessibilityState?.selected}
+        aria-expanded={accessibilityState?.expanded}
         {...(htmlRest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
         {children}
