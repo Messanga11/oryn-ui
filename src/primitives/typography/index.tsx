@@ -11,6 +11,7 @@ import type { TypographyVariant } from '../../tokens/typography';
  */
 const VARIANT_CLASS: Record<TypographyVariant, string> = {
   display: 'font-display text-[64px] font-bold leading-none tracking-tight text-text-primary',
+  'display-xl': 'font-display text-[96px] font-bold leading-none tracking-tight text-text-primary',
   h1: 'font-display text-[48px] font-bold leading-tight tracking-tight text-text-primary',
   h2: 'font-display text-[36px] font-bold leading-tight tracking-tight text-text-primary',
   h3: 'font-display text-[28px] font-bold leading-snug text-text-primary',

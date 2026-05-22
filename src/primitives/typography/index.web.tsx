@@ -12,6 +12,8 @@ export type FontWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
 const VARIANT_CLASS: Record<TypographyVariant, string> = {
   // DESIGN-01: clamp(64px, 9vw, 140px) — 320px→64px, 1440px→130px, 1920px→140px
   display: 'text-[clamp(64px,9vw,140px)] leading-[0.95] tracking-[-0.02em] font-display font-bold text-text-primary',
+  // display-xl: clamp(48px, 8vw, 96px) — hero email/CTA, no base-size conflict
+  'display-xl': 'text-[clamp(48px,8vw,96px)] leading-[0.95] tracking-[-0.02em] font-display font-bold text-text-primary',
   // DESIGN-02: h1 lineHeight ≈ 1.0
   h1: 'text-[clamp(48px,6vw,100px)] leading-[1.0] tracking-[-0.02em] font-display font-bold text-text-primary',
   h2: 'text-[clamp(40px,5vw,72px)] leading-[1.05] tracking-[-0.02em] font-display font-bold text-text-primary',
@@ -35,6 +37,7 @@ const VARIANT_CLASS: Record<TypographyVariant, string> = {
  */
 const VARIANT_ELEMENT: Record<TypographyVariant, keyof React.JSX.IntrinsicElements> = {
   display: 'h1',
+  'display-xl': 'p',
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',

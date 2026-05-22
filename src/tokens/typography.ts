@@ -70,6 +70,15 @@ export const typographyVariants = {
     letterSpacing: '-0.02em',
     color: '#f0f0f0',
   },
+  /** display-xl: clamp(48px, 8vw, 96px) — used for massive hero email/CTA on web */
+  'display-xl': {
+    fontFamily: 'Clash Display',
+    fontSize: 96,
+    lineHeight: 91, // lineHeight ≈ 0.95
+    letterSpacing: '-0.02em',
+    fontWeight: '700',
+    color: '#f0f0f0',
+  },
   h1: {
     fontFamily: 'Clash Display',
     fontSize: 48,
