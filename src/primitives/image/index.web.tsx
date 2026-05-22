@@ -1,15 +1,12 @@
 /**
- * Image.web.tsx — web-specific image primitive.
+ * Image.web.tsx — SSR-safe DOM implementation of Image.
+ *
+ * Uses a plain <img> element so that SSR and CSR produce identical markup —
+ * no react-native-web CSS-in-JS classes, no hydration mismatches.
  *
  * Vite resolves .web.tsx before .tsx for web builds (configured in vite.config.ts).
- * This avoids importing expo-image in web/SSR context — expo-image ships TypeScript
- * source only and cannot be loaded by Node's native module runner.
- *
- * Uses react-native-web's Image component, which renders as <img> on web and
- * is SSR-safe when react-native-web is externalized (Node loads CJS build natively).
  */
-import { Image as RNImage } from "react-native-web";
-import type { ImageStyle, StyleProp } from "react-native";
+import React from 'react';
 
 export type ImageContentFit = "contain" | "cover" | "fill" | "none" | "scale-down";
 
@@ -19,21 +16,12 @@ export interface ImageProps {
   height?: number | string;
   contentFit?: ImageContentFit;
   className?: string;
-  style?: StyleProp<ImageStyle>;
+  style?: React.CSSProperties;
   alt?: string;
   placeholder?: string;
   priority?: "low" | "normal" | "high";
   cachePolicy?: "none" | "disk" | "memory" | "memory-disk";
 }
-
-// Map expo-image's contentFit to react-native's resizeMode
-const RESIZE_MODE_MAP: Record<ImageContentFit, string> = {
-  contain: "contain",
-  cover: "cover",
-  fill: "stretch",
-  none: "center",
-  "scale-down": "contain",
-};
 
 export function Image({
   source,
@@ -42,18 +30,21 @@ export function Image({
   contentFit = "cover",
   className,
   style,
-  alt,
+  alt = "",
 }: ImageProps) {
-  const resolvedSource =
-    typeof source === "string" ? { uri: source } : source;
+  const src =
+    typeof source === "string"
+      ? source
+      : typeof source === "object" && source !== null && "uri" in source
+        ? (source as { uri: string }).uri
+        : "";
 
   return (
-    <RNImage
-      source={resolvedSource as Parameters<typeof RNImage>[0]["source"]}
-      resizeMode={RESIZE_MODE_MAP[contentFit] as "contain" | "cover" | "stretch" | "center"}
+    <img
+      src={src}
+      alt={alt}
       className={className}
-      style={[{ width, height } as ImageStyle, style]}
-      accessibilityLabel={alt}
+      style={{ width, height, objectFit: contentFit, ...style }}
     />
   );
 }

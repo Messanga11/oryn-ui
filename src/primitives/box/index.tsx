@@ -1,3 +1,4 @@
+import React from 'react';
 import type { ViewProps } from 'react-native';
 import { View } from 'react-native';
 
@@ -14,7 +15,13 @@ export interface BoxProps extends Omit<ViewProps, 'accessibilityRole'> {
  * Box — universal layout primitive.
  * Replaces <div>, <View> everywhere in app/feature code.
  * Styled via NativeWind className (Tailwind classes).
+ * forwardRef so parent components can attach intersection observers or GSAP refs.
  */
-export function Box({ className, style, ...props }: BoxProps) {
-  return <View className={className} style={style} {...(props as ViewProps)} />;
-}
+export const Box = React.forwardRef<View, BoxProps>(function Box(
+  { className, style, ...props },
+  ref,
+) {
+  return <View ref={ref} className={className} style={style} {...(props as ViewProps)} />;
+});
+
+Box.displayName = 'Box';

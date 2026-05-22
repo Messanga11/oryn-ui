@@ -37,6 +37,10 @@ export interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
   gap?: number;
   wrap?: boolean;
   className?: string;
+  /** Maps react-native accessibilityRole to HTML role */
+  accessibilityRole?: string;
+  /** Maps react-native accessibilityLabel to aria-label */
+  accessibilityLabel?: string;
 }
 
 export function Row({
@@ -46,6 +50,8 @@ export function Row({
   wrap = false,
   className,
   style,
+  accessibilityRole,
+  accessibilityLabel,
   ...props
 }: RowProps) {
   // Build gap style inline only when no class covers it (arbitrary value)
@@ -68,5 +74,13 @@ export function Row({
       ? { ...gapStyle, ...(style as React.CSSProperties) }
       : undefined;
 
-  return <div className={composedClass} style={mergedStyle} {...props} />;
+  return (
+    <div
+      className={composedClass}
+      style={mergedStyle}
+      role={accessibilityRole}
+      aria-label={accessibilityLabel}
+      {...props}
+    />
+  );
 }
