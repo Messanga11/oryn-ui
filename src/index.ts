@@ -195,6 +195,18 @@ export type { FeatureSectionProps, FeatureItem } from './blocks/feature-section'
 export { CustomBlock } from './blocks/custom-block';
 export type { VexBlock } from './blocks/types';
 
+export { GallerySection } from './blocks/gallery-section';
+export type { GallerySectionProps } from './blocks/gallery-section';
+
+export { StatsSection } from './blocks/stats-section';
+export type { StatsSectionProps } from './blocks/stats-section';
+
+export { QuoteSection } from './blocks/quote-section';
+export type { QuoteSectionProps } from './blocks/quote-section';
+
+export { CodeSection } from './blocks/code-section';
+export type { CodeSectionProps } from './blocks/code-section';
+
 // ─── Utils ─────────────────────────────────────────────────────────────────
 export { useRNWViewRef, useRNWTextRef } from './utils/rnw-ref';
 export type { RNWViewRef, RNWTextRef } from './utils/rnw-ref';

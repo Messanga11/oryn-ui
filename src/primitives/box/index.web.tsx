@@ -20,6 +20,8 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   accessibilityRole?: string;
   /** Maps to `aria-label` on web */
   accessibilityLabel?: string;
+  /** Maps to `data-testid` on web (mirrors react-native-web behaviour) */
+  testID?: string;
   children?: React.ReactNode;
 }
 
@@ -30,6 +32,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       style,
       accessibilityRole,
       accessibilityLabel,
+      testID,
       children,
       ...rest
     },
@@ -51,6 +54,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         style={style}
         role={accessibilityRole}
         aria-label={ariaLabel}
+        data-testid={testID}
         {...(htmlRest as React.HTMLAttributes<HTMLDivElement>)}
       >
         {children}
